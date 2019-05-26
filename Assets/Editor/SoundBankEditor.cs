@@ -65,7 +65,7 @@ public class SoundBankEditor : Editor {
     }
 
     void CreateAndAddToBank(SerializedObject bank, AudioClip clip, string name, string codename) {
-        string path = "Assets/SFX/SoundBank/Resources";
+        string path = "Assets/SFX/Resources";
         path = AssetDatabase.GenerateUniqueAssetPath(path + "/" + name + ".asset");
         SFXClip sfx_clip = CreateInstance<SFXClip>();
         SerializedObject sfx_clip_object = new SerializedObject(sfx_clip);
