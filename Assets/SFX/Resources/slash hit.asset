@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 280ce531ff938a042b97d7317ed86083, type: 3}
-  m_Name: SoundBank
+  m_Script: {fileID: 11500000, guid: b0b7ec00f3589e24b966433525b587d8, type: 3}
+  m_Name: slash hit
   m_EditorClassIdentifier: 
-  _sound_effect_list:
-  - {fileID: 11400000, guid: 79e641acbd33b254184adf7b1c958a77, type: 2}
-  - {fileID: 11400000, guid: e8107f1f9a0109b43bc7e4dea2cc13a9, type: 2}
+  _codename: sfx_slash_hit
+  _clip: {fileID: 8300000, guid: be87a013a97940c49a0b2cf83e03cf59, type: 3}
+  _volume: 1
