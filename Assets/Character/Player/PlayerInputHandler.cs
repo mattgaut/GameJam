@@ -15,6 +15,8 @@ public class PlayerInputHandler : MonoBehaviour {
 
     [SerializeField] Character player;
 
+    [SerializeField] SoundEffects sfxs;
+
     float gravity;
     float jump_velocity;
     float max_jump_hold;
@@ -46,6 +48,7 @@ public class PlayerInputHandler : MonoBehaviour {
     private void Update() {
         if (Input.GetButtonDown("Attack")) {
             player.Dash(new Vector2(1 * facing, 0), 0.05f);
+            SoundManager.instance.PlaySfx(sfxs.slash);
         }
 
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -148,15 +151,19 @@ public class PlayerInputHandler : MonoBehaviour {
     void HandleXInput(float x_input) {
         velocity.x = x_input * player.speed;
 
-        if (player.animator) {
-            if (x_input != 0 && (cont.collisions.below || cont.collisions.below_last_frame)) {
+
+        if (x_input != 0 && (cont.collisions.below || cont.collisions.below_last_frame)) {
+            SoundManager.instance.PlayRepeating(sfxs.walking);
+            if (player.animator) {
                 player.animator.SetBool("Running", true);
                 if (player.animator.IsAnimInState("PlayerRun")) {
                     player.animator.speed = Mathf.Abs(velocity.x / 5f);
                 } else {
                     player.animator.speed = 1f;
                 }
-            } else {
+            }
+        } else {
+            if (player.animator) {
                 player.animator.SetBool("Running", false);
                 player.animator.speed = 1f;
             }
@@ -219,5 +226,11 @@ public class PlayerInputHandler : MonoBehaviour {
             yield return new WaitForFixedUpdate();
         }
         jumping = false;
+    }
+
+    [System.Serializable]
+    class SoundEffects {
+        public SFXInfo walking;
+        public SFXInfo slash;
     }
 }

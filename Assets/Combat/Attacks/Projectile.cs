@@ -132,7 +132,7 @@ public class Projectile : SingleHitAttack {
 
     protected virtual void Explode() {
         speed = 0;
-        SoundManager.instance?.LocalPlaySfx(explode_sfx);
+        SoundManager.instance?.PlaySfx(explode_sfx);
         if (particles) {
             particles.Stop();
             particles.gameObject.transform.SetParent(null);

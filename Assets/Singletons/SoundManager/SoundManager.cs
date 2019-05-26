@@ -15,11 +15,8 @@ public class SoundManager : Singleton<SoundManager> {
 
     List<SFXClip> clips_played_this_frame;
 
-    public static void PlaySong(AudioClip clip) {
-        if (instance) {
-            instance.LocalPlaySong(clip);
-        }
-    }
+    Dictionary<SFXInfo, Coroutine> repeating_sounds;
+
     public static void SetVolume(float volume) {
         if (instance) {
             instance.volume = volume;
@@ -43,7 +40,7 @@ public class SoundManager : Singleton<SoundManager> {
         }
     }
 
-    public void LocalPlaySong(AudioClip clip) {
+    public void PlaySong(AudioClip clip) {
         instance.main.UnPause();
         if (main.clip == null || !main.isPlaying) {
             main.clip = clip;
@@ -59,12 +56,21 @@ public class SoundManager : Singleton<SoundManager> {
         }
     }
 
-    public void LocalPlaySfx(SFXInfo info, bool is_once_per_frame = true) {
+    public void PlaySfx(SFXInfo info, bool is_once_per_frame = true) {
         if (info == null || info.clip == null) return;
         if (is_once_per_frame && clips_played_this_frame.Contains(info.clip)) return;
 
         info.clip.PlaySound(sfx);
         clips_played_this_frame.Add(info.clip);
+    }
+
+    public void PlayRepeating(SFXInfo info, float delay = 0) {
+        if (info == null || info.clip == null) return;
+        if (repeating_sounds.ContainsKey(info)) {
+            if (repeating_sounds[info] != null) StopCoroutine(repeating_sounds[info]);
+            repeating_sounds.Remove(info);
+        }
+        repeating_sounds.Add(info, StartCoroutine(RepeatSound(info, delay)));
     }
 
     public void FadeOut() {
@@ -76,6 +82,7 @@ public class SoundManager : Singleton<SoundManager> {
         sound_bank.ReloadDictionary();
         SetAllVolumes(volume);
         clips_played_this_frame = new List<SFXClip>();
+        repeating_sounds = new Dictionary<SFXInfo, Coroutine>();
     }
 
     private void LateUpdate() {
@@ -84,6 +91,13 @@ public class SoundManager : Singleton<SoundManager> {
 
     void SetAllVolumes(float volume) {
         main.volume = fade_in.volume = sfx.volume = volume;
+    }
+
+    IEnumerator RepeatSound(SFXInfo sound, float delay) {
+        while (true) {
+            sound.clip.PlaySound(sfx);
+            yield return new WaitForSeconds(sound.clip.clip.length + delay);
+        }
     }
 
     IEnumerator FadeOutMain(float fade_length) {
