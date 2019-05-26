@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 280ce531ff938a042b97d7317ed86083, type: 3}
-  m_Name: SoundBank
+  m_Script: {fileID: 11500000, guid: b0b7ec00f3589e24b966433525b587d8, type: 3}
+  m_Name: footsteps
   m_EditorClassIdentifier: 
-  _sound_effect_list:
-  - {fileID: 11400000, guid: 5984875a91067ed45a43f120a152ee3e, type: 2}
+  _codename: sfx_footsteps
+  _clip: {fileID: 8300000, guid: 0020b7ef577cd9b49801410ae41f28de, type: 3}
+  _volume: 1

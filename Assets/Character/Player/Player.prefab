@@ -150,6 +150,15 @@ MonoBehaviour:
   min_jump_height: 1.4
   time_to_jump_apex: 0.24
   player: {fileID: 2841057737307961562}
+  sfxs:
+    walking:
+      _override_clip: {fileID: 0}
+      _default_codename: sfx_footsteps
+      default_clip: {fileID: 0}
+    slash:
+      _override_clip: {fileID: 0}
+      _default_codename: sfx_slash
+      default_clip: {fileID: 0}
 --- !u!114 &2841057737307961562
 MonoBehaviour:
   m_ObjectHideFlags: 0
