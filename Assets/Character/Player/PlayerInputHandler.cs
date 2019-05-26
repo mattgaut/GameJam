@@ -7,11 +7,13 @@ public class PlayerInputHandler : MonoBehaviour {
 
     CharacterController cont;
 
-    [SerializeField] float speed;
+    [SerializeField] GameObject flip_object;
 
     [SerializeField] [Range(0, 20)] float max_jump_height;
     [SerializeField] [Range(0, 20)] float min_jump_height;
     [SerializeField] [Range(0, 5)] float time_to_jump_apex;
+
+    [SerializeField] Character player;
 
     float gravity;
     float jump_velocity;
@@ -22,6 +24,11 @@ public class PlayerInputHandler : MonoBehaviour {
     Vector2 velocity;
 
     bool jumping;
+    bool grounded_jump_used;
+
+    int jumps_used;
+
+    int facing;
 
     Coroutine drop_routine;
 
@@ -37,6 +44,10 @@ public class PlayerInputHandler : MonoBehaviour {
     }
 
     private void Update() {
+        if (Input.GetButtonDown("Attack")) {
+            player.Dash(new Vector2(1 * facing, 0), 0.05f);
+        }
+
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
    
         Move(input);
@@ -47,49 +58,75 @@ public class PlayerInputHandler : MonoBehaviour {
             gravity_force = 0;
             velocity.y = 0;
         }
+        if (cont.collisions.below) {
+            jumps_used = 0;
+            grounded_jump_used = false;
+        }
 
         Vector2 adjusted_input = input;
+        if (!player.can_input || !player.can_move) {
+            adjusted_input = Vector2.zero;
+        }
 
         if (!jumping) gravity_force += gravity * Time.deltaTime;
 
-        if (true/*!player.is_knocked_back*/) {
-            if (jumping) {
-                velocity.y = jump_velocity;
+        if (player.CheckCancelVelocityFlag()) {
+            velocity = Vector3.zero;
+            jumping = false;
+            gravity_force = 0;
+            cont.Move((velocity + gravity_force * Vector2.up) * Time.deltaTime);
+        } else if(!player.is_knocked_back) {
+            if (player.is_dashing) {
+                HandleDashingInput();
             } else {
-                HandleYInput(adjusted_input.y);
+                if (jumping) {
+                    velocity.y = jump_velocity;
+                } else if (player.can_input) {
+                    HandleYInput(adjusted_input.y);
+                }
+
+                HandleXInput(adjusted_input.x);
+
+                cont.Move((velocity + gravity_force * Vector2.up) * Time.deltaTime);
             }
-
-            HandleXInput(adjusted_input.x);
-
-            Debug.Log(velocity + " : " + gravity_force);
-            Debug.Log((velocity + (gravity_force * Vector2.up)) * Time.deltaTime);
-            cont.Move((velocity + (gravity_force * Vector2.up)) * Time.deltaTime);
         } else {
             HandleKnockedBackInput();
         }
 
-        if (false/*player.is_knocked_back*/) {
+        if (player.is_knocked_back) {
             CheckCancelKnockback();
         }
     }
 
     void CheckCancelKnockback() {
         if (cont.collisions.below) {
-            //player.CancelKnockBack();
+            player.CancelKnockBack();
         } else {
             if (cont.collisions.left || cont.collisions.right) {
-                //player.CancelXKnockBack();
+                player.CancelXKnockBack();
             }
             if (cont.collisions.above) {
-                //player.CancelYKnockBack();
+                player.CancelYKnockBack();
             }
         }
     }
 
+    void HandleDashingInput() {
+        if (player.animator) {
+            player.animator.SetBool("Running", false);
+            player.animator.speed = 1f;
+        }
+
+        cont.Move(player.dash_force);
+        player.dash_force = Vector2.zero;
+        velocity = Vector3.zero;
+        gravity_force = 0;
+    }
+
     void HandleKnockedBackInput() {
         velocity.y = 0;
-        //cont.Move(player.knockback_force + (gravity_force * GameManager.GetDeltaTime(player.team)));
-        //player.knockback_force = Vector2.zero;
+        cont.Move(player.knockback_force + (gravity_force * Vector2.up * Time.deltaTime));
+        player.knockback_force = Vector2.zero;
     }
 
     void HandleYInput(float y_input) {
@@ -97,39 +134,43 @@ public class PlayerInputHandler : MonoBehaviour {
             if (cont.OverPlatform()) {
                 drop_routine = StartCoroutine(DropRoutine());
             }
-        } else if (drop_routine == null /*&& player.can_move*/ && Input.GetButtonDown("Drop")) {
+        } else if (drop_routine == null && player.can_move && Input.GetButtonDown("Drop")) {
             drop_routine = StartCoroutine(DropRoutine());
-        } else if (/*player.can_move &&*/ Input.GetButtonDown("Jump")) {
+        } else if (player.can_move && Input.GetButtonDown("Jump")) {
             if (cont.collisions.below) {
-                Jump();
+                Jump(true);
+            } else {
+                Jump(false);
             }
         }
     }
 
     void HandleXInput(float x_input) {
-        velocity.x = x_input * speed;
+        velocity.x = x_input * player.speed;
 
-        if (x_input != 0 && (cont.collisions.below || cont.collisions.below_last_frame)) {
-            //player.animator.SetBool("Running", true);
-            //if (player.animator.IsAnimInState("PlayerRun")) {
-            //    player.animator.speed = Mathf.Abs(velocity.x / 5f);
-            //} else {
-            //    player.animator.speed = 1f;
-            //}
-        } else {
-            //player.animator.SetBool("Running", false);
-            //player.animator.speed = 1f;
+        if (player.animator) {
+            if (x_input != 0 && (cont.collisions.below || cont.collisions.below_last_frame)) {
+                player.animator.SetBool("Running", true);
+                if (player.animator.IsAnimInState("PlayerRun")) {
+                    player.animator.speed = Mathf.Abs(velocity.x / 5f);
+                } else {
+                    player.animator.speed = 1f;
+                }
+            } else {
+                player.animator.SetBool("Running", false);
+                player.animator.speed = 1f;
+            }
         }
 
-        //if (player.can_change_facing) {
-        //    if (x_input < 0) {
-        //        facing = -1;
-        //        flip_object.transform.localRotation = Quaternion.Euler(0, 180f, 0);
-        //    } else if (x_input > 0) {
-        //        facing = 1;
-        //        flip_object.transform.localRotation = Quaternion.Euler(0, 0, 0);
-        //    }
-        //}
+        if (player.can_change_facing) {
+            if (x_input < 0) {
+                facing = -1;
+                flip_object.transform.localRotation = Quaternion.Euler(0, 180f, 0);
+            } else if (x_input > 0) {
+                facing = 1;
+                flip_object.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
+        }
     }
 
     IEnumerator DropRoutine() {
@@ -146,10 +187,16 @@ public class PlayerInputHandler : MonoBehaviour {
         drop_routine = null;
     }
 
-    void Jump() {
+    void Jump(bool grounded) {
         gravity_force = 0;
         velocity.y = jump_velocity;
-        StartCoroutine(JumpRoutine());
+        jumps_used += 1;
+        if (grounded) {
+            StartCoroutine(JumpRoutine());
+            grounded_jump_used = true;
+        } else {
+            StartCoroutine(ForceJumpRoutine(.08f));
+        }
     }
 
     IEnumerator JumpRoutine() {
@@ -157,8 +204,18 @@ public class PlayerInputHandler : MonoBehaviour {
         float time_left = max_jump_hold;
         bool held = true;
         while (time_left > 0 && held && !cont.collisions.above) {
-            time_left -= Time.deltaTime;
+            time_left -= Time.fixedDeltaTime;
             held = held && Input.GetButton("Jump");
+            yield return new WaitForFixedUpdate();
+        }
+        jumping = false;
+    }
+
+    IEnumerator ForceJumpRoutine(float force) {
+        jumping = true;
+        float time_left = force;
+        while (time_left > 0 && !cont.collisions.above) {
+            time_left -= Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
         jumping = false;

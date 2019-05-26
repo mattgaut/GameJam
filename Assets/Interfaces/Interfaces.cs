@@ -26,14 +26,14 @@ public interface IInputHandler {
     event Action on_land;
 }
 
-//public interface IBuff {
-//    Sprite icon { get; }
-//    bool is_benificial { get; }
-//    float length { get; }
+public interface IBuff {
+    Sprite icon { get; }
+    bool is_benificial { get; }
+    float length { get; }
 
-//    void Apply(Character stat_entity);
-//    void Remove(Character stat_entity);
-//}
+    void Apply(Character stat_entity);
+    void Remove(Character stat_entity);
+}
 
 public interface IStatBuff {
     float flat { get; }
