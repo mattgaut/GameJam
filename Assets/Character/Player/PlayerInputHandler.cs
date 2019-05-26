@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerInputHandler : MonoBehaviour {
+
+    public event Action on_drop;
 
     CharacterController cont;
 
@@ -45,7 +48,9 @@ public class PlayerInputHandler : MonoBehaviour {
 
         velocity = Vector2.zero;
         gravity_force = 0;
+    }
 
+    private void Start() {
         footsteps.clip = sfxs.walking.clip.clip;
         footsteps.volume = sfxs.walking.clip.volume;
     }
@@ -187,6 +192,7 @@ public class PlayerInputHandler : MonoBehaviour {
     }
 
     IEnumerator DropRoutine() {
+        on_drop?.Invoke();
         cont.RemovePlatformFromMask();
         float delay = .15f;
         while (delay > 0) {
