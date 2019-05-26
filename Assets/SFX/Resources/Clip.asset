@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b7ec00f3589e24b966433525b587d8, type: 3}
   m_Name: Clip
   m_EditorClassIdentifier: 
-  _codename: 
+  _codename: sfx_clip
   _clip: {fileID: 0}
   _volume: 1

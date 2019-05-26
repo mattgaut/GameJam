@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: SoundBank
   m_EditorClassIdentifier: 
   _sound_effect_list:
+  - {fileID: 11400000, guid: 79e641acbd33b254184adf7b1c958a77, type: 2}
   - {fileID: 11400000, guid: 5984875a91067ed45a43f120a152ee3e, type: 2}

@@ -84,7 +84,7 @@ public class NamePopupWindow : PopupWindowContent {
 
     public override void OnGUI(Rect rect) {
         search_string = EditorGUILayout.TextField(search_name +": ", search_string);
-        SoundBank bank = AssetDatabase.LoadAssetAtPath<SoundBank>("Assets/SFX/SoundBank/SoundBank.asset");
+        SoundBank bank = AssetDatabase.LoadAssetAtPath<SoundBank>("Assets/SFX/SoundBank.asset");
         string[] codenames = bank.GetAllSFXClipCodenames().ToArray();
         string[] names = bank.GetAllSFXClipNames().ToArray();
         for (int i = 0; i < codenames.Length; i++) {

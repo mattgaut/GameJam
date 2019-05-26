@@ -89,7 +89,7 @@ public class SoundBankEditor : Editor {
         sfx_clip_object.FindProperty("_codename").stringValue = SoundBank.GetCodename(sfx_clip.name);
         sfx_clip_object.ApplyModifiedProperties();
 
-        string new_path = "Assets/SFX/SoundBank/Resources/" + sfx_clip.name + ".asset";
+        string new_path = "Assets/SFX/Resources/" + sfx_clip.name + ".asset";
         AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(sfx_clip), new_path);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
