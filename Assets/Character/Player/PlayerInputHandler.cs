@@ -17,6 +17,8 @@ public class PlayerInputHandler : MonoBehaviour {
 
     [SerializeField] SoundEffects sfxs;
 
+    [SerializeField] AudioSource footsteps;
+
     float gravity;
     float jump_velocity;
     float max_jump_hold;
@@ -43,6 +45,9 @@ public class PlayerInputHandler : MonoBehaviour {
 
         velocity = Vector2.zero;
         gravity_force = 0;
+
+        footsteps.clip = sfxs.walking.clip.clip;
+        footsteps.volume = sfxs.walking.clip.volume;
     }
 
     private void Update() {
@@ -153,7 +158,7 @@ public class PlayerInputHandler : MonoBehaviour {
 
 
         if (x_input != 0 && (cont.collisions.below || cont.collisions.below_last_frame)) {
-            SoundManager.instance.PlayRepeating(sfxs.walking);
+            if (!footsteps.isPlaying) footsteps.Play();
             if (player.animator) {
                 player.animator.SetBool("Running", true);
                 if (player.animator.IsAnimInState("PlayerRun")) {
@@ -163,6 +168,7 @@ public class PlayerInputHandler : MonoBehaviour {
                 }
             }
         } else {
+            footsteps.Stop();
             if (player.animator) {
                 player.animator.SetBool("Running", false);
                 player.animator.speed = 1f;

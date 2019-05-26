@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour {
     public Vector2Int position {
         get { return _position; }
     }
+    public bool is_background_tile;
 
     public bool has_collider { get { return coll != null; } }
 

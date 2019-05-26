@@ -60,7 +60,6 @@ public class SoundManager : Singleton<SoundManager> {
         if (info == null || info.clip == null) return;
         if (is_once_per_frame && clips_played_this_frame.Contains(info.clip)) return;
 
-        Debug.Log("info");
         info.clip.PlaySound(sfx);
         clips_played_this_frame.Add(info.clip);
     }
@@ -68,10 +67,16 @@ public class SoundManager : Singleton<SoundManager> {
     public void PlayRepeating(SFXInfo info, float delay = 0) {
         if (info == null || info.clip == null) return;
         if (repeating_sounds.ContainsKey(info)) {
-            if (repeating_sounds[info] != null) StopCoroutine(repeating_sounds[info]);
-            repeating_sounds.Remove(info);
+            return;
         }
         repeating_sounds.Add(info, StartCoroutine(RepeatSound(info, delay)));
+    }
+
+    public void StopRepeating(SFXInfo info) {
+        if (repeating_sounds.ContainsKey(info)) {
+            StopCoroutine(repeating_sounds[info]);
+            repeating_sounds.Remove(info);
+        }
     }
 
     public void FadeOut() {
