@@ -190,7 +190,7 @@ public class Character : MonoBehaviour {
     /// <param name="force">The force of the knockback</param>
     /// <param name="length">Knockback Duration</param>
     public void TakeKnockback(Character source, Vector2 force, float length = 0.5f) {
-        if (knockback_resistant) {
+        if (knockback_resistant || !alive) {
             return;
         }
         if (is_dashing) {
