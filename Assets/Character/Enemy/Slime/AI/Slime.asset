@@ -23,8 +23,8 @@ MonoBehaviour:
   - _name: Hunt
     rect:
       serializedVersion: 2
-      x: 435
-      y: 493
+      x: 448
+      y: 517
       width: 200
       height: 40.95508
   - _name: Pounce
@@ -34,13 +34,20 @@ MonoBehaviour:
       y: 602
       width: 200
       height: 40.95508
+  - _name: Tame
+    rect:
+      serializedVersion: 2
+      x: 258
+      y: 421
+      width: 200
+      height: 40.95508
   transitions:
   - _to:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 435
-        y: 493
+        x: 448
+        y: 517
         width: 200
         height: 40.95508
     _from:
@@ -56,6 +63,46 @@ MonoBehaviour:
         _name: CanHunt
       _should_parameter_be_true: 1
   - _to:
+      _name: Tame
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 421
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Wander
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 343
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanTame
+      _should_parameter_be_true: 1
+  - _to:
+      _name: Tame
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 421
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 517
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanTame
+      _should_parameter_be_true: 1
+  - _to:
       _name: Wander
       rect:
         serializedVersion: 2
@@ -67,8 +114,8 @@ MonoBehaviour:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 435
-        y: 493
+        x: 448
+        y: 517
         width: 200
         height: 40.95508
     _conditions:
@@ -87,8 +134,8 @@ MonoBehaviour:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 435
-        y: 493
+        x: 448
+        y: 517
         width: 200
         height: 40.95508
     _conditions:
@@ -99,16 +146,16 @@ MonoBehaviour:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 435
-        y: 493
+        x: 448
+        y: 517
         width: 200
         height: 40.95508
     _from:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 435
-        y: 493
+        x: 448
+        y: 517
         width: 200
         height: 40.95508
     _conditions: []
@@ -116,8 +163,8 @@ MonoBehaviour:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 435
-        y: 493
+        x: 448
+        y: 517
         width: 200
         height: 40.95508
     _from:
@@ -129,9 +176,27 @@ MonoBehaviour:
         width: 200
         height: 40.95508
     _conditions: []
+  - _to:
+      _name: Wander
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 343
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Tame
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 421
+        width: 200
+        height: 40.95508
+    _conditions: []
   parameters:
   - _name: CanHunt
   - _name: CanPounce
+  - _name: CanTame
   entry_state:
     _name: Wander
     rect:

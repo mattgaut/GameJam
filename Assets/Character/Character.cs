@@ -30,6 +30,10 @@ public class Character : MonoBehaviour {
         get { return _team; }
     }
 
+    public Inventory inventory {
+        get; private set;
+    }
+
     public AnimatorWrapper animator {
         get { return anim; }
     }
@@ -288,6 +292,18 @@ public class Character : MonoBehaviour {
         purse.coins += coin;
     }
 
+    public bool TrySpendCoins(int count) {
+        if (purse.coins < count) {
+            return false;
+        }
+        purse.coins -= count;
+        return true;
+    }
+
+    public int CoinCount() {
+        return purse.coins;
+    }
+
     /// <summary>
     /// Checks if character wants to cancel velocity
     /// Set should clear to false if not handling velocity cancellation
@@ -368,6 +384,8 @@ public class Character : MonoBehaviour {
         if (team == Team.enemy) {
             purse.coins += Random.Range(0, 10);
         }
+
+        inventory = new Inventory();
 
         OnAwake();
     }
@@ -497,6 +515,41 @@ public class Character : MonoBehaviour {
     [System.Serializable]
     public class CoinPurse {
         public int coins;
+    }
+
+    public class Inventory {
+        Dictionary<Item.Type, List<Item>> items;
+
+        public event System.Action<Item> on_add;
+
+        public event System.Action<Item.Type> on_remove;
+
+
+        public Inventory() {
+            items = new Dictionary<Item.Type, List<Item>>();
+            foreach (Item.Type i in System.Enum.GetValues(typeof(Item.Type))) {
+                items.Add(i, new List<Item>());
+            }
+        }
+
+        public void AddItem(Item i) {
+            items[i.type].Add(i);
+            on_add?.Invoke(i);
+        }
+
+        public Item TryRemoveItem(Item.Type i) {
+            if (items[i].Count > 0) {
+                Item item = items[i][0];
+                items[i].RemoveAt(0);
+                on_remove?.Invoke(i);
+                return item;
+            }
+            return null;
+        }
+
+        public int ItemCount(Item.Type i) {
+            return items[i].Count;
+        }
     }
 }
 

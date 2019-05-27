@@ -35,6 +35,14 @@ public abstract class EnemyHandler : StateMachineController {
 
     public Vector2 input { get { return _input; } set { _input = value; } }
 
+    public bool is_taming { get { return tame_item != null; } }
+
+    Item tame_item;
+
+    public void AttemptTame(Item tame) {
+        if (tame_item == null) tame_item = tame;
+    }
+
     public bool CanHunt() {
         return target != null && CustomCanHunt() && Vector2.Distance(target.transform.position, transform.position) <= aggro_range && (!need_line_of_sight || HasLineOfSight());
     }
@@ -90,6 +98,34 @@ public abstract class EnemyHandler : StateMachineController {
         base.Awake();
         cont = GetComponent<CharacterController>();
         character = GetComponent<Character>();
+    }
+
+    protected IEnumerator Tame() {
+        Vector2 difference = tame_item.transform.position - transform.position;
+        while (tame_item != null && difference.magnitude < 0.4f) {
+            _input = difference;
+            _input.x = Mathf.Sign(_input.x);
+            _input.y = Mathf.Sign(_input.y);
+            yield return new WaitForFixedUpdate();
+            difference = tame_item.transform.position - transform.position;
+        }
+        _input = Vector2.zero;
+
+        tame_item.is_taming = true;
+        yield return new WaitForSeconds(5f);
+        tame_item.is_taming = false;
+
+        if (tame_item != null && tame_item.TryTame(character)) {
+            foreach (Collider2D coll in GetComponentsInChildren<Collider2D>()) {
+                if (coll.gameObject.layer == LayerMask.NameToLayer("EnemyAttack")) {
+                    coll.gameObject.layer = LayerMask.NameToLayer("PlayerAttack");
+                } else if (coll.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+                    coll.gameObject.layer = LayerMask.NameToLayer("Pet");
+                }
+            }
+        }
+
+        _input.x = 0;
     }
 
     protected virtual void Start() {

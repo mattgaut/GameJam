@@ -127,12 +127,17 @@ MonoBehaviour:
       _name: CanHunt
     callback_name: CanHunt
     callback_is_field: 0
-    callback_index: 1
+    callback_index: 2
   - parameter:
       _name: CanPounce
     callback_name: get_is_in_pounce_range
     callback_is_field: 0
     callback_index: 0
+  - parameter:
+      _name: CanTame
+    callback_name: get_is_taming
+    callback_is_field: 0
+    callback_index: 1
   state_coroutine_list:
   - state:
       _name: Wander
@@ -164,6 +169,16 @@ MonoBehaviour:
         height: 0
     coroutine_name: Pounce
     coroutine_index: 0
+  - state:
+      _name: Tame
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+    coroutine_name: Tame
+    coroutine_index: 4
   active_on_start: 1
   line_of_sight_origin: {fileID: 9185669954773786414}
   line_of_sight_blocking_mask:
@@ -223,7 +238,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0051195323, y: -0.13822722}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -234,7 +249,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 0.26689225, y: 0.152215}
   m_EdgeRadius: 0
 --- !u!1 &9185669953475325283
 GameObject:
