@@ -146,6 +146,8 @@ public class PlayerInputHandler : MonoBehaviour {
         if (y_input <= -.5f && drop_routine == null && cont.OverPlatform() && Input.GetButton("Jump")) {
             if (cont.OverPlatform()) {
                 drop_routine = StartCoroutine(DropRoutine());
+            } else {
+                on_drop?.Invoke();
             }
         } else if (drop_routine == null && player.can_move && Input.GetButtonDown("Drop")) {
             drop_routine = StartCoroutine(DropRoutine());
