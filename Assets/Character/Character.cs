@@ -22,6 +22,10 @@ public class Character : MonoBehaviour {
 
     [SerializeField] protected bool is_aerial_unit;
 
+    [SerializeField] CoinPurse purse;
+
+    [SerializeField] GameObject coin;
+
     public Team team {
         get { return _team; }
     }
@@ -68,7 +72,7 @@ public class Character : MonoBehaviour {
     }
 
     public bool alive {
-        get; protected set;
+        get { return health.current > 0; }
     }
     public bool invincible {
         get { return invincibility_lock.locked; }
@@ -240,7 +244,6 @@ public class Character : MonoBehaviour {
         InvokeOnKill(this, killed);
     }
 
-
     /// <summary>
     /// Lightly shoots an object out of character in upward arc
     /// Gameobject must have rigidbody
@@ -254,7 +257,7 @@ public class Character : MonoBehaviour {
         obj.transform.position = transform.position + Vector3.up * 0.5f;
         float angle = Random.Range(0f, 90f) - 45f;
         Rigidbody2D body = obj.GetComponent<Rigidbody2D>();
-        body.AddForce(Quaternion.Euler(0, 0, angle) * Vector2.up * Random.Range(8f, 20f), ForceMode2D.Impulse);
+        body.AddForce(Quaternion.Euler(0, 0, angle) * Vector2.up * Random.Range(2f, 6f), ForceMode2D.Impulse);
     }
 
     /// <summary>
@@ -281,7 +284,9 @@ public class Character : MonoBehaviour {
         knockback_force = new Vector2(0, knockback_force.y);
     }
 
-
+    public void AddCoins(int coin) {
+        purse.coins += coin;
+    }
 
     /// <summary>
     /// Checks if character wants to cancel velocity
@@ -356,11 +361,13 @@ public class Character : MonoBehaviour {
         health.current = health.max;
         energy.current = energy.max;
 
-        alive = true;
-
         movement_lock = new Lock();
         anti_gravity_lock = new Lock();
         invincibility_lock = new Lock();
+
+        if (team == Team.enemy) {
+            purse.coins += Random.Range(0, 10);
+        }
 
         OnAwake();
     }
@@ -388,8 +395,20 @@ public class Character : MonoBehaviour {
     protected virtual void Die(Character killed_by) {
         if (killed_by) last_hit_by.GiveKillCredit(this);
         InvokeOnDeath(this, killed_by);
-        alive = false;
-        gameObject.SetActive(false);
+
+        if (team == Team.enemy) {
+            for (int i = 0; i < purse.coins; i++) {
+                DropObject(coin, true);
+            }
+            Destroy(gameObject);
+        } else {
+            anim.SetBool("Running", false);
+            for (int i = 0; i < purse.coins/2; i++) {
+                DropObject(coin, true);
+            }
+
+            GameManager.instance.KillPlayer();
+        }
     }
 
     /// <summary>
@@ -399,10 +418,12 @@ public class Character : MonoBehaviour {
     protected virtual IEnumerator IFrames() {
         float time = 0;
         int lock_value = invincibility_lock.AddLock();
+        anim.SetBool("Flicker", true);
         while (time < invincibility_length) {
             time += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
+        anim.SetBool("Flicker", false);
         invincibility_lock.RemoveLock(lock_value);
     }
 
@@ -471,6 +492,11 @@ public class Character : MonoBehaviour {
         is_dashing = false;
         is_knocked_back = false;
         invincibility_lock.Clear();
+    }
+
+    [System.Serializable]
+    public class CoinPurse {
+        public int coins;
     }
 }
 

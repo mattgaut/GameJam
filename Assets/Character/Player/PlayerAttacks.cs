@@ -46,7 +46,7 @@ public class PlayerAttacks : MonoBehaviour {
         hit.TakeDamage(1, player);
         SoundManager.instance.PlaySfx(sfxs.hit);
         Vector2 real_knockback = slash_knockback;
-        real_knockback.x *= Mathf.Sign(hit.transform.position.x - hit_by.transform.position.x);
+        real_knockback.x *= Mathf.Sign(hit.transform.position.x - transform.position.x);
         hit.TakeKnockback(player, real_knockback);
     }
 

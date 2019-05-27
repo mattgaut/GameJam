@@ -57,6 +57,10 @@ public class PlayerInputHandler : MonoBehaviour {
     }
 
     private void Update() {
+        if (!player.alive) {
+            SoundManager.instance.StopRepeating(sfxs.walking);
+        }
+
         if (Input.GetButtonDown("Attack")) {
             attacks.TryUseSlash(facing);
         }

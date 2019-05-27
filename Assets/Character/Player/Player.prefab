@@ -189,6 +189,9 @@ MonoBehaviour:
   knockback_resistant: 0
   anim: {fileID: 270414208}
   is_aerial_unit: 0
+  purse:
+    coins: 0
+  coin: {fileID: 8513008454113073655, guid: 49fa54a2b04157244990efe97320f54b, type: 3}
 --- !u!82 &560743753
 AudioSource:
   m_ObjectHideFlags: 0

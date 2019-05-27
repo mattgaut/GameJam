@@ -83,8 +83,11 @@ MonoBehaviour:
     _head: {fileID: 9185669954773786414}
   invincibility_length: 0.2
   knockback_resistant: 0
-  anim: {fileID: 0}
+  anim: {fileID: 9185669954773786409}
   is_aerial_unit: 0
+  purse:
+    coins: 0
+  coin: {fileID: 8513008454113073655, guid: 49fa54a2b04157244990efe97320f54b, type: 3}
 --- !u!50 &9185669952805762723
 Rigidbody2D:
   serializedVersion: 4
