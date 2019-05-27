@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5483968428962970917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7409824818104389433}
+  m_Layer: 12
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7409824818104389433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483968428962970917}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.01, y: 0.131, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9185669953622481444}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9185669952805762727
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +157,7 @@ MonoBehaviour:
       _name: CanHunt
     callback_name: CanHunt
     callback_is_field: 0
-    callback_index: 2
+    callback_index: 3
   - parameter:
       _name: CanPounce
     callback_name: get_is_in_pounce_range
@@ -135,7 +165,7 @@ MonoBehaviour:
     callback_index: 0
   - parameter:
       _name: CanTame
-    callback_name: get_is_taming
+    callback_name: get_can_tame
     callback_is_field: 0
     callback_index: 1
   state_coroutine_list:
@@ -180,7 +210,7 @@ MonoBehaviour:
     coroutine_name: Tame
     coroutine_index: 4
   active_on_start: 1
-  line_of_sight_origin: {fileID: 9185669954773786414}
+  line_of_sight_origin: {fileID: 7409824818104389433}
   line_of_sight_blocking_mask:
     serializedVersion: 2
     m_Bits: 256
@@ -338,6 +368,7 @@ Transform:
   - {fileID: 9185669954773786414}
   - {fileID: 9185669953475325308}
   - {fileID: 9185669953321059217}
+  - {fileID: 7409824818104389433}
   m_Father: {fileID: 9185669952805762720}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -23,15 +23,18 @@ public class Item : MonoBehaviour {
         get { return _type; }
     }
 
-    public void SetSpriteEnabled(bool enabled) {
+    public void SetEnabled(bool enabled) {
         sprite_renderer.enabled = enabled;
+        GetComponent<Collider2D>().enabled = enabled;
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
         if (!is_taming) {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                 EnemyHandler character = collision.gameObject.GetComponentInParent<EnemyHandler>();
-                character.AttemptTame(this);
+                if (!character.is_tamed) {
+                    character.AttemptTame(this);
+                }
             }
         }
     }

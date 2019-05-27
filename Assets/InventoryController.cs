@@ -33,7 +33,7 @@ public class InventoryController : MonoBehaviour {
         if (Input.GetButtonDown("PlaceItem") && button_list.Count > 0) {
             Item i = character.inventory.TryRemoveItem(button_list[button_selected].type);
             if (i != null) {
-                i.SetSpriteEnabled(true);
+                i.SetEnabled(true);
                 i.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform);
                 i.transform.SetParent(null);
                 i.transform.position = character.transform.position;

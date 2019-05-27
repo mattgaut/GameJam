@@ -43,26 +43,6 @@ MonoBehaviour:
       height: 40.95508
   transitions:
   - _to:
-      _name: Hunt
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 517
-        width: 200
-        height: 40.95508
-    _from:
-      _name: Wander
-      rect:
-        serializedVersion: 2
-        x: 521
-        y: 343
-        width: 200
-        height: 40.95508
-    _conditions:
-    - _parameter:
-        _name: CanHunt
-      _should_parameter_be_true: 1
-  - _to:
       _name: Tame
       rect:
         serializedVersion: 2
@@ -81,6 +61,26 @@ MonoBehaviour:
     _conditions:
     - _parameter:
         _name: CanTame
+      _should_parameter_be_true: 1
+  - _to:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 517
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Wander
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 343
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanHunt
       _should_parameter_be_true: 1
   - _to:
       _name: Tame
