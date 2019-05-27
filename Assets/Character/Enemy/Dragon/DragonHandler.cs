@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class DragonHandler : AerialEnemyHandler {
 
-    public bool can_fireball { get { return last_used > cooldown; } }
+    public bool can_fireball { get { return target != null && last_used > cooldown && (target.transform.position.y - transform.position.y) < 2f; } }
 
     [SerializeField] float cooldown;
     [SerializeField] float wind_up_time;
@@ -48,25 +48,29 @@ public class DragonHandler : AerialEnemyHandler {
 
     protected override IEnumerator Tame() {
         Item tame_item = this.tame_item;
-        float difference = transform.position.x - tame_item.transform.position.x;
-        float y_difference = transform.position.y - tame_item.transform.position.y;
-        while (tame_item != null && difference > 0.4f) {
-            _input.x = -difference;
-            _input.y = -y_difference;
+        Vector2 difference = tame_item.transform.position - transform.position;
+        while (tame_item != null && difference.magnitude > 0.4f) {
+            _input = difference;
 
             _input = _input.normalized;
 
             yield return new WaitForFixedUpdate();
             if (tame_item == null) break;
-            difference = transform.position.x - tame_item.transform.position.x;
-            y_difference = transform.position.y - tame_item.transform.position.y;
+            difference = tame_item.transform.position - transform.position;
         }
+
+        if (difference.magnitude > 0.4f) {
+            tame_item = null;
+        }
+
         _input = Vector2.zero;
 
         if (tame_item != null) {
+            int one = character.LockInvincibility();
             tame_item.is_taming = true;
             yield return new WaitForSeconds(5f);
             tame_item.is_taming = false;
+            character.UnlockInvincibility(one);
         }
 
         if (tame_item != null && !tame_item.used && tame_item.TryTame(character)) {

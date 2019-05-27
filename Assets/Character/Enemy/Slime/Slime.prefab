@@ -189,22 +189,22 @@ MonoBehaviour:
       _name: CanHunt
     callback_name: CanHunt
     callback_is_field: 0
-    callback_index: 3
+    callback_index: 4
   - parameter:
       _name: CanPounce
     callback_name: get_is_in_pounce_range
     callback_is_field: 0
-    callback_index: 0
+    callback_index: 1
   - parameter:
       _name: CanTame
     callback_name: get_can_tame
     callback_is_field: 0
-    callback_index: 1
+    callback_index: 2
   - parameter:
       _name: IsTamed
     callback_name: get_is_tamed
     callback_is_field: 0
-    callback_index: 2
+    callback_index: 3
   state_coroutine_list:
   - state:
       _name: Wander
@@ -215,7 +215,7 @@ MonoBehaviour:
         width: 0
         height: 0
     coroutine_name: RandomHop
-    coroutine_index: 3
+    coroutine_index: 4
   - state:
       _name: Hunt
       rect:
@@ -225,7 +225,7 @@ MonoBehaviour:
         width: 0
         height: 0
     coroutine_name: HopAtEnemy
-    coroutine_index: 1
+    coroutine_index: 2
   - state:
       _name: Pounce
       rect:
@@ -245,7 +245,7 @@ MonoBehaviour:
         width: 0
         height: 0
     coroutine_name: Tame
-    coroutine_index: 5
+    coroutine_index: 6
   - state:
       _name: WanderTamed
       rect:
@@ -255,7 +255,7 @@ MonoBehaviour:
         width: 0
         height: 0
     coroutine_name: HopAtPlayer
-    coroutine_index: 2
+    coroutine_index: 3
   active_on_start: 1
   line_of_sight_origin: {fileID: 7409824818104389433}
   line_of_sight_blocking_mask:
@@ -272,6 +272,11 @@ MonoBehaviour:
   pounce_windup: 0.8
   hop_windup: 0.5
   pounce_range: 3
+  hop_strength: 1
+  vomit_cd: 0
+  vomit_windup: 0
+  vomit_projectile: {fileID: 0}
+  projectile_knockback: {x: 0, y: 0}
 --- !u!1 &9185669953321059216
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,7 +533,7 @@ Animator:
   m_GameObject: {fileID: 9185669954773786413}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1129915bf6825454182cea37128de030, type: 2}
+  m_Controller: {fileID: 22100000, guid: 5834367f52ee4ea488ca88fa19188461, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

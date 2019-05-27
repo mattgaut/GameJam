@@ -13,6 +13,8 @@ public class GameManager : Singleton<GameManager> {
 
     [SerializeField] Image fade_image;
 
+    [SerializeField] Canvas ui;
+
     public Character player { get; private set; }
     public Level current_level { get; private set; }
 
@@ -66,6 +68,22 @@ public class GameManager : Singleton<GameManager> {
 
     public void KillPlayer() {
         StartCoroutine(Respawn());
+    }
+
+    public void Quit() {
+        Application.Quit();
+    }
+
+    private void Update() {
+        if (Input.GetButtonDown("Pause")) {
+            if (Time.timeScale == 0) {
+                Time.timeScale = 1;
+                ui.gameObject.SetActive(false);
+            } else {
+                Time.timeScale = 0;
+                ui.gameObject.SetActive(true);
+            }
+        }
     }
 
     IEnumerator Respawn() {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SoundManager : Singleton<SoundManager> {
 
@@ -11,11 +12,30 @@ public class SoundManager : Singleton<SoundManager> {
     [SerializeField] SoundBank _sound_bank;
     [Range(0,1)][SerializeField] float music_volume = 0.1f, sfx_volume = 0.1f;
 
+    [SerializeField] SFXClip change_sfx_volume_clip;
+
     Coroutine fade_routine;
 
     List<SFXClip> clips_played_this_frame;
 
     Dictionary<SFXInfo, Coroutine> repeating_sounds;
+
+    public void SetMusicVolume(Slider slider) {
+
+        music_volume = slider.value;
+
+        instance.SetAllVolumes(music_volume, sfx_volume);
+    }
+
+    public void SetSFXVolume(Slider slider) {
+
+        float old = sfx_volume;
+        sfx_volume = slider.value;
+
+        instance.SetAllVolumes(music_volume, sfx_volume);
+
+        if (sfx_volume != old)change_sfx_volume_clip.PlaySound(sfx);
+    }
 
     public static void SetVolume(float music_volume, float sfx_volume) {
         if (instance) {

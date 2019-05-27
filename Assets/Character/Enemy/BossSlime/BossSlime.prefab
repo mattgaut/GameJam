@@ -130,10 +130,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: 1
+  on_hit_sfx:
+    _override_clip: {fileID: 0}
+    _default_codename: 
+    default_clip: {fileID: 0}
   _char_definition:
     _name: Slime
     _health:
-      base_value: 50
+      base_value: 600
     _speed:
       base_value: 2
     _energy:
@@ -143,7 +147,7 @@ MonoBehaviour:
     _center_mass: {fileID: 7409824818104389433}
     _feet: {fileID: 7409824818104389433}
     _head: {fileID: 7409824818104389433}
-  invincibility_length: 0.2
+  invincibility_length: 0
   knockback_resistant: 0
   anim: {fileID: 9185669954773786409}
   is_aerial_unit: 0
@@ -189,12 +193,12 @@ MonoBehaviour:
       _name: CanHunt
     callback_name: CanHunt
     callback_is_field: 0
-    callback_index: 3
+    callback_index: 4
   - parameter:
       _name: CanPounce
     callback_name: get_is_in_pounce_range
     callback_is_field: 0
-    callback_index: 0
+    callback_index: 1
   state_coroutine_list:
   - state:
       _name: Wander
@@ -205,7 +209,7 @@ MonoBehaviour:
         width: 0
         height: 0
     coroutine_name: RandomHop
-    coroutine_index: 3
+    coroutine_index: 4
   - state:
       _name: Hunt
       rect:
@@ -215,7 +219,7 @@ MonoBehaviour:
         width: 0
         height: 0
     coroutine_name: HopAtEnemy
-    coroutine_index: 1
+    coroutine_index: 2
   - state:
       _name: Pounce
       rect:
@@ -243,6 +247,10 @@ MonoBehaviour:
   hop_windup: 0.5
   pounce_range: 10
   hop_strength: 2
+  vomit_cd: 0
+  vomit_windup: 0
+  vomit_projectile: {fileID: 0}
+  projectile_knockback: {x: 0, y: 0}
 --- !u!1 &9185669953321059216
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,7 +486,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9185669954773786413}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.068, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9185669953622481444}
@@ -521,7 +529,7 @@ SpriteRenderer:
   m_SortingLayerID: 476953395
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 41cb25165d672b04091a12971ea34c28, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 88ba24b8c91333f4e9bdd926b8b2d66f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -542,7 +550,7 @@ Animator:
   m_GameObject: {fileID: 9185669954773786413}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1129915bf6825454182cea37128de030, type: 2}
+  m_Controller: {fileID: 22100000, guid: 393d5716e8a84e34b90497c566279a2c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

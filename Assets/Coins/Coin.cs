@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour {
 
+    SFXInfo info = new SFXInfo("sfx_coin");
+
     void Awake() {
         GameManager.instance.AddDroppedObjects(gameObject);
     }
@@ -13,6 +15,7 @@ public class Coin : MonoBehaviour {
             if (collision.GetComponentInParent<Character>().alive) {
                 collision.GetComponentInParent<Character>().AddCoins(1);
                 GameManager.instance.RemoveDroppedObjects(gameObject);
+                SoundManager.instance.PlaySfx(info);
                 Destroy(gameObject);
             }
         }

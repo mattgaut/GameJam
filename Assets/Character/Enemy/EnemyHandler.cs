@@ -110,7 +110,7 @@ public abstract class EnemyHandler : StateMachineController {
     protected virtual IEnumerator Tame() {
         Item tame_item = this.tame_item;
         float difference = transform.position.x - tame_item.transform.position.x;
-        while (tame_item != null && difference > 0.4f) {
+        while (tame_item != null && Mathf.Abs(difference) > 0.4f) {
             _input.x = -difference;
             _input.y = 0;
             _input = _input.normalized;
@@ -119,12 +119,18 @@ public abstract class EnemyHandler : StateMachineController {
             if (tame_item == null) break;
             difference = transform.position.x - tame_item.transform.position.x;
         }
+
+        if (Mathf.Abs(difference) > 0.4f) {
+            tame_item = null;
+        }
         _input = Vector2.zero;
 
         if (tame_item != null) {
+            int one = character.LockInvincibility();
             tame_item.is_taming = true;
             yield return new WaitForSeconds(5f);
             tame_item.is_taming = false;
+            character.UnlockInvincibility(one);
         }
 
         if (tame_item != null && !tame_item.used && tame_item.TryTame(character)) {

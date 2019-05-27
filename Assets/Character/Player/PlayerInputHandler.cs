@@ -176,7 +176,7 @@ public class PlayerInputHandler : MonoBehaviour {
             if (player.animator) {
                 player.animator.SetBool("Running", true);
                 if (player.animator.IsAnimInState("PlayerRun")) {
-                    player.animator.speed = Mathf.Abs(velocity.x / 5f);
+                    player.animator.speed = Mathf.Abs(velocity.x / player.speed);
                 } else {
                     player.animator.speed = 1f;
                 }

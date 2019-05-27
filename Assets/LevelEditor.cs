@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class LevelEditor : EditorWindow {
 
     Level to_edit;
@@ -127,3 +128,4 @@ public class LevelEditor : EditorWindow {
         can_delete_background = EditorGUILayout.Toggle(can_delete_background);
     }
 }
+#endif

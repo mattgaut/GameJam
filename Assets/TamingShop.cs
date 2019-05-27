@@ -13,6 +13,8 @@ public class TamingShop : MonoBehaviour {
     [SerializeField] RectTransform shop_transform;
     [SerializeField] TameShopButton button_prefab;
 
+    [SerializeField] SFXInfo info = new SFXInfo("sfx_purchase");
+
     public bool TrySellItem(ShopItem i) {
         if (i.count > 0 && GameManager.instance.player.TrySpendCoins(i.price)) {
             i.count--;
@@ -23,6 +25,8 @@ public class TamingShop : MonoBehaviour {
             item.transform.SetParent(GameManager.instance.player.transform);
             item.GetComponent<SpriteRenderer>().enabled = false;
             player_gold.text = GameManager.instance.player.CoinCount() + " Gold Remaining";
+
+            SoundManager.instance.PlaySfx(info);
             return true;
         }
         return false;

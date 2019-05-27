@@ -12,6 +12,8 @@ public class Character : MonoBehaviour {
 
     [SerializeField] Team _team;
 
+    [SerializeField] SFXInfo on_hit_sfx;
+
     [SerializeField] CharacterDefinition _char_definition;
 
     [SerializeField] float invincibility_length = 0f;
@@ -182,6 +184,7 @@ public class Character : MonoBehaviour {
                 iframes = StartCoroutine(IFrames());
             }
             health.current -= damage;
+            SoundManager.instance.PlaySfx(on_hit_sfx);
             if (health.current <= 0) {
                 Die(source);
             } else {

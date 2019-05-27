@@ -1,0 +1,261 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edf0ac3e9c432843bdaa1571587c5c6, type: 3}
+  m_Name: Slime
+  m_EditorClassIdentifier: 
+  states:
+  - _name: Wander
+    rect:
+      serializedVersion: 2
+      x: 522
+      y: 342
+      width: 200
+      height: 40.95508
+  - _name: Hunt
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 513
+      width: 200
+      height: 40.95508
+  - _name: Pounce
+    rect:
+      serializedVersion: 2
+      x: 291
+      y: 602
+      width: 200
+      height: 40.95508
+  - _name: Tame
+    rect:
+      serializedVersion: 2
+      x: 258
+      y: 421
+      width: 200
+      height: 40.95508
+  - _name: WanderTamed
+    rect:
+      serializedVersion: 2
+      x: 702
+      y: 445
+      width: 200
+      height: 40.95508
+  transitions:
+  - _to:
+      _name: Tame
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 421
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Wander
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 342
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanTame
+      _should_parameter_be_true: 1
+  - _to:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 513
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Wander
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 342
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanHunt
+      _should_parameter_be_true: 1
+  - _to:
+      _name: Tame
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 421
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 513
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanTame
+      _should_parameter_be_true: 1
+  - _to:
+      _name: Wander
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 342
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 513
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanHunt
+      _should_parameter_be_true: 0
+    - _parameter:
+        _name: IsTamed
+      _should_parameter_be_true: 0
+  - _to:
+      _name: WanderTamed
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 445
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 513
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanHunt
+      _should_parameter_be_true: 0
+    - _parameter:
+        _name: IsTamed
+      _should_parameter_be_true: 1
+  - _to:
+      _name: Pounce
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 602
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 513
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanPounce
+      _should_parameter_be_true: 1
+  - _to:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 513
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 513
+        width: 200
+        height: 40.95508
+    _conditions: []
+  - _to:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 513
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Pounce
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 602
+        width: 200
+        height: 40.95508
+    _conditions: []
+  - _to:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 513
+        width: 200
+        height: 40.95508
+    _from:
+      _name: WanderTamed
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 445
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanHunt
+      _should_parameter_be_true: 1
+  - _to:
+      _name: WanderTamed
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 445
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Tame
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 421
+        width: 200
+        height: 40.95508
+    _conditions: []
+  parameters:
+  - _name: CanHunt
+  - _name: CanPounce
+  - _name: CanTame
+  - _name: IsTamed
+  entry_state:
+    _name: Wander
+    rect:
+      serializedVersion: 2
+      x: 522
+      y: 342
+      width: 200
+      height: 40.95508
