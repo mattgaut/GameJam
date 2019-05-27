@@ -69,7 +69,7 @@ public class StateMachineController : MonoBehaviour {
                     yield return new WaitForFixedUpdate();
                 }
                 state_machine_instance.TransitionUsingCallbacks();
-                //Debug.Log("Transition to " + state_machine_instance.current_state.name);
+                Debug.Log("Transition to " + state_machine_instance.current_state.name);
             } else {
                 Debug.LogError("No Routine exists for state "  + state_machine_instance.current_state.name);
                 break;

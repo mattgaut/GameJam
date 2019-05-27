@@ -139,7 +139,7 @@ public class GroundedEnemyHandler : EnemyHandler, IInputHandler {
             if (character.can_move) {
                 if (_input.y > 0 && cont.collisions.below) {
                     velocity.y = jump_velocity;
-                    on_jump.Invoke(true);
+                    on_jump?.Invoke(true);
                 }
                 if (_input.y < 0 && drop_routine == null) {
                     drop_routine = StartCoroutine(DropRoutine());

@@ -35,9 +35,13 @@ public abstract class EnemyHandler : StateMachineController {
 
     public Vector2 input { get { return _input; } set { _input = value; } }
 
-    public bool is_taming { get { return tame_item != null; } }
+    public bool can_tame { get { return tame_item != null && is_tamed == false; } }
+
+    public bool is_tamed { get; private set; }
 
     Item tame_item;
+
+    int layer_attacking;
 
     public void AttemptTame(Item tame) {
         if (tame_item == null) tame_item = tame;
@@ -64,12 +68,12 @@ public abstract class EnemyHandler : StateMachineController {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (bump_damage && collision.gameObject.layer == LayerMask.NameToLayer("Player") && last_bump > bump_cooldown) {
+        if (bump_damage && collision.gameObject.layer == layer_attacking && last_bump > bump_cooldown) {
             ConfirmBump(collision.gameObject.GetComponentInParent<Character>());
         }
     }
     private void OnTriggerStay2D(Collider2D collision) {
-        if (bump_damage && collision.gameObject.layer == LayerMask.NameToLayer("Player") && last_bump > bump_cooldown) {
+        if (bump_damage && collision.gameObject.layer == layer_attacking && last_bump > bump_cooldown) {
             ConfirmBump(collision.gameObject.GetComponentInParent<Character>());
         }
     }
@@ -103,6 +107,7 @@ public abstract class EnemyHandler : StateMachineController {
     protected IEnumerator Tame() {
         Vector2 difference = tame_item.transform.position - transform.position;
         while (tame_item != null && difference.magnitude < 0.4f) {
+            Debug.Log(difference);
             _input = difference;
             _input.x = Mathf.Sign(_input.x);
             _input.y = Mathf.Sign(_input.y);
@@ -111,9 +116,11 @@ public abstract class EnemyHandler : StateMachineController {
         }
         _input = Vector2.zero;
 
-        tame_item.is_taming = true;
-        yield return new WaitForSeconds(5f);
-        tame_item.is_taming = false;
+        if (tame_item != null) {
+            tame_item.is_taming = true;
+            yield return new WaitForSeconds(5f);
+            tame_item.is_taming = false;
+        }
 
         if (tame_item != null && tame_item.TryTame(character)) {
             foreach (Collider2D coll in GetComponentsInChildren<Collider2D>()) {
@@ -123,6 +130,12 @@ public abstract class EnemyHandler : StateMachineController {
                     coll.gameObject.layer = LayerMask.NameToLayer("Pet");
                 }
             }
+            gameObject.layer = LayerMask.NameToLayer("Pet");
+            layer_attacking = LayerMask.NameToLayer("Enemy");
+            transform.localScale *= 1.5f;
+            transform.localPosition += 0.5f * Vector3.up;
+            bump_knockback *= 2f;
+            is_tamed = true;
         }
 
         _input.x = 0;
@@ -135,6 +148,7 @@ public abstract class EnemyHandler : StateMachineController {
             target = GameManager.instance.player;
         }
         SetActive(active_on_start);
+        layer_attacking = LayerMask.NameToLayer("Player");
     }
 
     protected virtual void Ini() {}

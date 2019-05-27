@@ -76,7 +76,7 @@ public class InventoryController : MonoBehaviour {
     void RemoveItem(Item.Type i) {
         if (buttons.ContainsKey(i)) {
             int count = character.inventory.ItemCount(i);
-            if (count == 1) {
+            if (count == 0) {
                 button_list.Remove(buttons[i]);
                 Destroy(buttons[i].gameObject);
                 buttons.Remove(i);

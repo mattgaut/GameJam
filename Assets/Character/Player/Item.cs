@@ -31,6 +31,7 @@ public class Item : MonoBehaviour {
         if (!is_taming) {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                 EnemyHandler character = collision.gameObject.GetComponentInParent<EnemyHandler>();
+                character.AttemptTame(this);
             }
         }
     }
@@ -52,7 +53,7 @@ public class Item : MonoBehaviour {
 
     void Tame(Character character) {
         Instantiate(tame_success_object);
-        tame_success_object.transform.position = transform.position;
+        tame_success_object.transform.position = character.transform.position;
 
         Destroy(gameObject);
     }
