@@ -144,7 +144,7 @@ MonoBehaviour:
     _feet: {fileID: 7409824818104389433}
     _head: {fileID: 7409824818104389433}
   invincibility_length: 0.2
-  knockback_resistant: 1
+  knockback_resistant: 0
   anim: {fileID: 9185669954773786409}
   is_aerial_unit: 0
   purse:
@@ -241,7 +241,8 @@ MonoBehaviour:
   no_gravity: 0
   pounce_windup: 0.8
   hop_windup: 0.5
-  pounce_range: 10
+  pounce_range: 160
+  hop_strength: 2.5
 --- !u!1 &9185669953321059216
 GameObject:
   m_ObjectHideFlags: 0

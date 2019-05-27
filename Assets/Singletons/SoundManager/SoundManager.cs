@@ -44,7 +44,6 @@ public class SoundManager : Singleton<SoundManager> {
     public void PlaySong(SFXClip clip, bool loop = true) {
         instance.main.UnPause();
         main.loop = loop;
-        main.volume = clip.volume;
         if (main.clip == null || !main.isPlaying) {
             main.clip = clip.clip;
             if (fade_routine != null) {

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SlimeValley
   m_EditorClassIdentifier: 
   _codename: 
-  _clip: {fileID: 8300000, guid: 89ec725c2d06a1042b7df747525464ac, type: 3}
+  _clip: {fileID: 8300000, guid: ea76834cd4bf857479689636f82ed6b8, type: 3}
   _volume: 0.141

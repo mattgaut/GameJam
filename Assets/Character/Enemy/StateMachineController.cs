@@ -62,7 +62,11 @@ public class StateMachineController : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     protected IEnumerator StateMachineCoroutine() {
+
+        Debug.Log(active);
         while (active) {
+
+            Debug.Log(active);
             if (state_coroutines.ContainsKey(state_machine_instance.current_state)) {
                 yield return state_coroutines[state_machine_instance.current_state].Invoke();
                 while (!can_transition) {

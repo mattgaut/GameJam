@@ -7,6 +7,7 @@ public class SlimeHandler : GroundedEnemyHandler {
     [SerializeField] float pounce_windup, hop_windup;
 
     [SerializeField] float pounce_range;
+    [SerializeField] float hop_strength = 1f;
 
     public bool is_in_pounce_range { get { return target != null && Vector2.Distance(target.transform.position, transform.position) < pounce_range; } }
 
@@ -30,7 +31,7 @@ public class SlimeHandler : GroundedEnemyHandler {
             character.animator.SetBool("Hopping", false);
 
             if (!cancel && target != null) {
-                Vector2 dash_vector = Vector2.one * 4f;
+                Vector2 dash_vector = Vector2.one * 4f * hop_strength;
                 dash_vector.x *= Mathf.Sign(target.position.x - transform.position.x);
                 character.GiveKnockback(character, dash_vector, 1f);
 
@@ -63,6 +64,7 @@ public class SlimeHandler : GroundedEnemyHandler {
             if (!cancel && target != null) {
                 Vector2 hop_vector = Vector2.one * Random.Range(0.75f, 2f);
                 hop_vector.x *= Mathf.Sign(target.position.x - transform.position.x);
+                hop_vector *= hop_strength;
                 character.GiveKnockback(character, hop_vector, 0.5f);
 
                 while (character.is_knocked_back) {
@@ -99,6 +101,7 @@ public class SlimeHandler : GroundedEnemyHandler {
         if (!cancel) {
             Vector2 hop_vector = Vector2.one * Random.Range(0.75f, 2f);
             hop_vector.x *= Mathf.Sign(target.position.x - transform.position.x);
+            hop_vector *= hop_strength;
             character.GiveKnockback(character, hop_vector, 0.5f);
 
             while (character.is_knocked_back) {
@@ -116,6 +119,7 @@ public class SlimeHandler : GroundedEnemyHandler {
 
         Vector2 hop_vector = Vector2.one * Random.Range(0.75f, 2f);
         hop_vector.x *= Random.Range(-1f, 1f);
+        hop_vector *= hop_strength;
 
         while (length < hop_windup) {
             yield return null;
@@ -126,7 +130,6 @@ public class SlimeHandler : GroundedEnemyHandler {
             length += Time.deltaTime;
         }
         character.animator.SetBool("Hopping", false);
-
 
         if (!cancel) {
             character.GiveKnockback(character, hop_vector, 0.5f);
