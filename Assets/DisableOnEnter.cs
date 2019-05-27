@@ -11,6 +11,13 @@ public class DisableOnEnter : MonoBehaviour {
         }
     }
 
+
+    private void OnTriggerStay2D(Collider2D other) {
+        if (((1 << other.gameObject.layer) & (1 << LayerMask.NameToLayer("Player"))) != 0) {
+            coll.enabled = false;
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D other) {
         if (((1 << other.gameObject.layer) & (1 << LayerMask.NameToLayer("Player"))) != 0) {
             coll.enabled = true;
