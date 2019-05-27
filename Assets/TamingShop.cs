@@ -17,6 +17,8 @@ public class TamingShop : MonoBehaviour {
         if (i.count > 0 && GameManager.instance.player.TrySpendCoins(i.price)) {
             i.count--;
             Item item = Instantiate(i.item);
+
+            item.SetEnabled(false);
             GameManager.instance.player.inventory.AddItem(item);
             item.transform.SetParent(GameManager.instance.player.transform);
             item.GetComponent<SpriteRenderer>().enabled = false;

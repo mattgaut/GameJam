@@ -33,6 +33,9 @@ public abstract class Attack : MonoBehaviour {
     public void SetOnHit(OnHit on_hit) {
         this.on_hit = on_hit;
     }
+    public void SetTargets(LayerMask mask) {
+        targets = mask;
+    }
     public virtual void SetSource(Character _source) {
         source = _source;
     }

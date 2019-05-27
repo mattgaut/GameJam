@@ -25,7 +25,7 @@ public class Item : MonoBehaviour {
 
     public void SetEnabled(bool enabled) {
         sprite_renderer.enabled = enabled;
-        GetComponent<Collider2D>().enabled = enabled;
+        GetComponent<CircleCollider2D>().enabled = enabled;
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
@@ -41,7 +41,7 @@ public class Item : MonoBehaviour {
 
     public bool TryTame(Character character) {
         float chance = tame_chance;
-        if (character.name == favored_enemy) {
+        if (character.char_definition.name == favored_enemy) {
             chance *= 2;
         }
 
@@ -55,8 +55,8 @@ public class Item : MonoBehaviour {
     }
 
     void Tame(Character character) {
-        Instantiate(tame_success_object);
-        tame_success_object.transform.position = character.transform.position;
+        GameObject obj = Instantiate(tame_success_object);
+        obj.transform.position = character.transform.position;
 
         Destroy(gameObject);
     }

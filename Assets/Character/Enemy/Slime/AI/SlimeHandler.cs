@@ -11,6 +11,8 @@ public class SlimeHandler : GroundedEnemyHandler {
     public bool is_in_pounce_range { get { return Vector2.Distance(target.transform.position, transform.position) < pounce_range; } }
 
     IEnumerator Pounce() {
+
+        Transform target = this.target.transform;
         _input = Vector2.zero;
 
         float length = 0f;
@@ -25,7 +27,7 @@ public class SlimeHandler : GroundedEnemyHandler {
         }
         if (!cancel) {
             Vector2 dash_vector = Vector2.one * 4f;
-            dash_vector.x *= Mathf.Sign(target.transform.position.x - transform.position.x);
+            dash_vector.x *= Mathf.Sign(target.position.x - transform.position.x);
             character.GiveKnockback(character, dash_vector, 1f);
 
             while (character.is_knocked_back) {
@@ -35,6 +37,7 @@ public class SlimeHandler : GroundedEnemyHandler {
     }
 
     IEnumerator HopAtEnemy() {
+        Transform target = this.target.transform;
         _input = Vector2.zero;
 
         float length = 0f;
@@ -50,7 +53,7 @@ public class SlimeHandler : GroundedEnemyHandler {
 
         if (!cancel) {
             Vector2 hop_vector = Vector2.one * Random.Range(0.75f, 2f);
-            hop_vector.x *= Mathf.Sign(target.transform.position.x - transform.position.x);
+            hop_vector.x *= Mathf.Sign(target.position.x - transform.position.x);
             character.GiveKnockback(character, hop_vector, 0.5f);
 
             while (character.is_knocked_back) {

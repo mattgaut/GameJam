@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7409824818104389433}
-  m_Layer: 12
+  - component: {fileID: 2285075258600314688}
+  - component: {fileID: 650704837387777957}
+  m_Layer: 17
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,6 +32,36 @@ Transform:
   m_Father: {fileID: 9185669953622481444}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2285075258600314688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483968428962970917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de71674bc2c827f4cbd20b82c045629d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 9185669952805762749}
+  coll: {fileID: 650704837387777957}
+--- !u!58 &650704837387777957
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483968428962970917}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &9185669952805762727
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,11 +247,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   need_line_of_sight: 1
+  bump_hitbox: {fileID: 2555147007262187410}
   _aggro_range: 6
   bump_damage: 1
   bump_knockback: {x: 2, y: 2, z: 0}
   flip_object: {fileID: 9185669952805762727}
-  base_facing: 1
+  base_facing: -1
   no_gravity: 0
   pounce_windup: 0.8
   hop_windup: 0.5
@@ -234,6 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9185669953321059217}
   - component: {fileID: 9185669953321059218}
+  - component: {fileID: 2555147007262187410}
   m_Layer: 13
   m_Name: HurtBox
   m_TagString: Untagged
@@ -281,6 +315,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.26689225, y: 0.152215}
   m_EdgeRadius: 0
+--- !u!114 &2555147007262187410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9185669953321059216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba3eadd79b23bd4d9f544ae580ab970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets:
+    serializedVersion: 2
+    m_Bits: 1024
+  time_between_hits: 0.25
 --- !u!1 &9185669953475325283
 GameObject:
   m_ObjectHideFlags: 0

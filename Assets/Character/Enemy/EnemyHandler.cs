@@ -12,6 +12,8 @@ public abstract class EnemyHandler : StateMachineController {
 
     [SerializeField] bool need_line_of_sight;
 
+    [SerializeField] MultiHitAttack bump_hitbox;
+
     [SerializeField] float _aggro_range;
 
     [SerializeField] protected bool bump_damage;
@@ -24,12 +26,12 @@ public abstract class EnemyHandler : StateMachineController {
 
     protected Coroutine ai_routine;
 
-    protected float aggro_range { get { return _aggro_range; } }
+    public float aggro_range { get { return _aggro_range; } }
     protected CharacterController.CollisionInfo collision_info { get { return cont.collisions; } }
 
     protected Character character { get; private set; }
 
-    protected Character target;
+    public Character target { get; set; }
 
     protected Vector2 _input;
 
@@ -41,17 +43,26 @@ public abstract class EnemyHandler : StateMachineController {
 
     Item tame_item;
 
-    int layer_attacking;
+    public int layer_attacking {
+        get; private set;
+    }
 
     public void AttemptTame(Item tame) {
         if (tame_item == null) tame_item = tame;
     }
 
     public bool CanHunt() {
-        return target != null && CustomCanHunt() && Vector2.Distance(target.transform.position, transform.position) <= aggro_range && (!need_line_of_sight || HasLineOfSight());
+        return target != null && CustomCanHuntTarget(target) && Vector2.Distance(target.transform.position, transform.position) <= aggro_range && (!need_line_of_sight || HasLineOfSight());
+    }
+
+    public bool CanHuntTarget(Character character) {
+        return character != null && CustomCanHuntTarget(character) && Vector2.Distance(character.transform.position, transform.position) <= aggro_range && (!need_line_of_sight || HasLineOfSightTarget(character));
     }
 
     public virtual bool HasLineOfSight() {
+        return HasLineOfSightTarget(target);
+    }
+    public virtual bool HasLineOfSightTarget(Character target) {
         CharacterDefinition target_definition = target.char_definition;
         RaycastHit2D hit = Physics2D.Linecast(line_of_sight_origin.position, target_definition.center_mass.position, line_of_sight_blocking_mask);
         if (hit) {
@@ -63,19 +74,8 @@ public abstract class EnemyHandler : StateMachineController {
         return !hit;
     }
 
-    protected virtual bool CustomCanHunt() {
+    protected virtual bool CustomCanHuntTarget(Character target) {
         return true;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (bump_damage && collision.gameObject.layer == layer_attacking && last_bump > bump_cooldown) {
-            ConfirmBump(collision.gameObject.GetComponentInParent<Character>());
-        }
-    }
-    private void OnTriggerStay2D(Collider2D collision) {
-        if (bump_damage && collision.gameObject.layer == layer_attacking && last_bump > bump_cooldown) {
-            ConfirmBump(collision.gameObject.GetComponentInParent<Character>());
-        }
     }
 
     protected void ConfirmBump(Character player) {
@@ -100,19 +100,21 @@ public abstract class EnemyHandler : StateMachineController {
 
     protected override void Awake() {
         base.Awake();
+        bump_hitbox.SetOnHit((a, b) => ConfirmBump(a));
         cont = GetComponent<CharacterController>();
         character = GetComponent<Character>();
     }
 
     protected IEnumerator Tame() {
-        Vector2 difference = tame_item.transform.position - transform.position;
-        while (tame_item != null && difference.magnitude < 0.4f) {
-            Debug.Log(difference);
-            _input = difference;
-            _input.x = Mathf.Sign(_input.x);
-            _input.y = Mathf.Sign(_input.y);
+        Item tame_item = this.tame_item;
+        float difference = transform.position.x - tame_item.transform.position.x;
+        while (tame_item != null && difference > 0.4f) {
+            _input.x = -difference;
+            _input.y = 0;
+            _input = _input.normalized;
+            
             yield return new WaitForFixedUpdate();
-            difference = tame_item.transform.position - transform.position;
+            difference = transform.position.x - tame_item.transform.position.x;
         }
         _input = Vector2.zero;
 
@@ -132,12 +134,13 @@ public abstract class EnemyHandler : StateMachineController {
             }
             gameObject.layer = LayerMask.NameToLayer("Pet");
             layer_attacking = LayerMask.NameToLayer("Enemy");
+            bump_hitbox.SetTargets(1 << layer_attacking);
             transform.localScale *= 1.5f;
             transform.localPosition += 0.5f * Vector3.up;
             bump_knockback *= 2f;
             is_tamed = true;
         }
-
+        this.tame_item = null;
         _input.x = 0;
     }
 
