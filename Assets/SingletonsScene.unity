@@ -188,7 +188,7 @@ PrefabInstance:
     - target: {fileID: 1840228104867661567, guid: 478644d61588a1c499e65940212fa897,
         type: 3}
       propertyPath: start_on_awake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 478644d61588a1c499e65940212fa897, type: 3}
