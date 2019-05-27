@@ -9,7 +9,7 @@ public class SoundManager : Singleton<SoundManager> {
 
     [SerializeField] AudioSource main, fade_in, sfx;
     [SerializeField] SoundBank _sound_bank;
-    [Range(0,1)][SerializeField] float volume = 0.1f;
+    [Range(0,1)][SerializeField] float music_volume = 0.1f, sfx_volume = 0.1f;
 
     Coroutine fade_routine;
 
@@ -17,15 +17,16 @@ public class SoundManager : Singleton<SoundManager> {
 
     Dictionary<SFXInfo, Coroutine> repeating_sounds;
 
-    public static void SetVolume(float volume) {
+    public static void SetVolume(float music_volume, float sfx_volume) {
         if (instance) {
-            instance.volume = volume;
-            instance.SetAllVolumes(volume);
+            instance.music_volume = music_volume;
+            instance.sfx_volume = sfx_volume;
+            instance.SetAllVolumes(music_volume, sfx_volume);
         }
     }
     public static float GetVolume() {
         if (instance) {
-            return instance.volume;
+            return instance.music_volume;
         }
         return 0;
     }
@@ -86,7 +87,7 @@ public class SoundManager : Singleton<SoundManager> {
 
     protected override void OnAwake() {
         sound_bank.ReloadDictionary();
-        SetAllVolumes(volume);
+        SetAllVolumes(music_volume, sfx_volume);
         clips_played_this_frame = new List<SFXClip>();
         repeating_sounds = new Dictionary<SFXInfo, Coroutine>();
     }
@@ -95,8 +96,9 @@ public class SoundManager : Singleton<SoundManager> {
         clips_played_this_frame.Clear();
     }
 
-    void SetAllVolumes(float volume) {
-        main.volume = fade_in.volume = sfx.volume = volume;
+    void SetAllVolumes(float music_volume, float sfx_volume) {
+        main.volume = fade_in.volume = music_volume;
+        sfx.volume = sfx_volume;
     }
 
     IEnumerator RepeatSound(SFXInfo sound, float delay) {
@@ -110,7 +112,7 @@ public class SoundManager : Singleton<SoundManager> {
         float timer = fade_length;
         while (timer > 0) {
             timer -= Time.unscaledDeltaTime;
-            main.volume = Mathf.Pow((timer / fade_length), 4f) * volume;
+            main.volume = Mathf.Pow((timer / fade_length), 4f) * music_volume;
             yield return null;
         }
         main.volume = 0;
@@ -125,10 +127,10 @@ public class SoundManager : Singleton<SoundManager> {
         main.Play();
         while (timer < fade_length) {
             timer += Time.unscaledDeltaTime;
-            main.volume = (timer / fade_length) * volume;
+            main.volume = (timer / fade_length) * music_volume;
             yield return null;
         }
-        main.volume = volume;
+        main.volume = music_volume;
 
         fade_routine = null;
     }
@@ -140,14 +142,14 @@ public class SoundManager : Singleton<SoundManager> {
         fade_in.volume = 0;
         while (timer > 0) {
             timer -= Time.unscaledDeltaTime;
-            main.volume = Mathf.Pow(timer / fade_length, 4f) * volume;
-            fade_in.volume = Mathf.Pow(1 - (timer / fade_length), 4f) * volume;
+            main.volume = Mathf.Pow(timer / fade_length, 4f) * music_volume;
+            fade_in.volume = Mathf.Pow(1 - (timer / fade_length), 4f) * music_volume;
             yield return null;
         }
         main.volume = 0;
         main.clip = null;
         main.Stop();
-        fade_in.volume = volume;
+        fade_in.volume = music_volume;
         AudioSource temp = main;
         main = fade_in;
         fade_in = temp;
