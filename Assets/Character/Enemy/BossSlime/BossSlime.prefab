@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 9185669952805762723}
   - component: {fileID: 9185669952805762749}
   m_Layer: 12
-  m_Name: Slime
+  m_Name: BossSlime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,8 +112,7 @@ MonoBehaviour:
   horizontal_ray_count: 4
   vertical_ray_count: 4
   can_travel_slopes: 1
-  boundary_collider: {fileID: 9185669953475325309, guid: 36861f52247516b4dafd5eb94be22273,
-    type: 3}
+  boundary_collider: {fileID: 9185669953475325284}
   collision_mask:
     serializedVersion: 2
     m_Bits: 256
@@ -335,6 +334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9185669953475325308}
   - component: {fileID: 9185669953475325284}
+  - component: {fileID: 916020830907735880}
   m_Layer: 12
   m_Name: Hitbox
   m_TagString: Untagged
@@ -366,7 +366,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -390,6 +390,32 @@ PolygonCollider2D:
       - {x: 0.11419195, y: 0.015867338}
       - {x: 0.15142797, y: 0.1019779}
       - {x: 0.122572586, y: 0.20321977}
+--- !u!61 &916020830907735880
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9185669953475325283}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.005234815, y: 0.026802544}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.12136942, y: 0.027454175}
+  m_EdgeRadius: 0
 --- !u!1 &9185669953622481451
 GameObject:
   m_ObjectHideFlags: 0
