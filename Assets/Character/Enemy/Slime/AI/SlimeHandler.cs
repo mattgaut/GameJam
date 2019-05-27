@@ -13,9 +13,7 @@ public class SlimeHandler : GroundedEnemyHandler {
     IEnumerator Pounce() {
         if (this.target) {
             Transform target = this.target.transform;
-            _input = Vector2.zero;
-
-            Face(target.transform.position.x - transform.position.x);
+            _input = Vector2.zero;            
 
             float length = 0f;
             bool cancel = false;
@@ -47,9 +45,7 @@ public class SlimeHandler : GroundedEnemyHandler {
         if (this.target) {
             Transform target = this.target.transform;
             _input = Vector2.zero;
-
-            Face(target.transform.position.x - transform.position.x);
-
+            
             float length = 0f;
             bool cancel = false;
             character.animator.SetBool("Hopping", true);
@@ -87,9 +83,7 @@ public class SlimeHandler : GroundedEnemyHandler {
 
         float length = 0f;
         bool cancel = false;
-        character.animator.SetBool("Hopping", true);
-
-        Face(target.transform.position.x - transform.position.x);
+        character.animator.SetBool("Hopping", true);       
 
         while (length < hop_windup) {
             yield return null;
@@ -122,8 +116,6 @@ public class SlimeHandler : GroundedEnemyHandler {
 
         Vector2 hop_vector = Vector2.one * Random.Range(0.75f, 2f);
         hop_vector.x *= Random.Range(-1f, 1f);
-
-        Face(hop_vector.x);
 
         while (length < hop_windup) {
             yield return null;

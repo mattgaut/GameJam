@@ -114,6 +114,7 @@ public abstract class EnemyHandler : StateMachineController {
             _input = _input.normalized;
             
             yield return new WaitForFixedUpdate();
+            if (tame_item == null) break;
             difference = transform.position.x - tame_item.transform.position.x;
         }
         _input = Vector2.zero;
