@@ -60,7 +60,7 @@ public class Item : MonoBehaviour {
     void Tame(Character character) {
         GameObject obj = Instantiate(tame_success_object);
         obj.transform.position = character.transform.position;
-
+        SoundManager.instance.PlaySfx(new SFXInfo("sfx_tame"));
         Destroy(gameObject);
     }
 }
