@@ -80,6 +80,8 @@ public class DragonHandler : AerialEnemyHandler {
             gameObject.layer = LayerMask.NameToLayer("Pet");
             layer_attacking = LayerMask.NameToLayer("Enemy");
             bump_hitbox.SetTargets(1 << layer_attacking);
+
+            GameManager.instance.player.health.AddBuff(new HealthBuff());
             transform.localScale *= 1.5f;
             transform.localPosition += 0.5f * Vector3.up;
             bump_knockback *= 2f;

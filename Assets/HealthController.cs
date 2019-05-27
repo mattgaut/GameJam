@@ -15,9 +15,15 @@ public class HealthController : MonoBehaviour {
     }
 
     private void Update() {
-        if (parent.childCount != Mathf.CeilToInt(character.health)) {
-            for (int i = 0;) {
-
+        int count = Mathf.RoundToInt(character.health.current);
+        if (parent.childCount > count) {
+            for (int i = parent.childCount - 1; i >= count; i--) {
+                Destroy(parent.GetChild(i).gameObject);
+            }
+        }
+        if (parent.childCount < count) {
+            for (int i = parent.childCount; i < count; i++) {
+                Instantiate(prefab, parent);
             }
         }
     }

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5483968428962970917}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.01, y: 0.131, z: 0}
-  m_LocalScale: {x: 0.033333335, y: 0.033333335, z: 1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
   m_Children: []
   m_Father: {fileID: 9185669953622481444}
   m_RootOrder: 3
@@ -91,7 +91,7 @@ Transform:
   m_GameObject: {fileID: 9185669952805762727}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1.06, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 9185669953622481444}
   m_Father: {fileID: 0}
@@ -148,7 +148,7 @@ MonoBehaviour:
   anim: {fileID: 9185669954773786409}
   is_aerial_unit: 0
   purse:
-    coins: 1000
+    coins: 20000
   coin: {fileID: 8513008454113073655, guid: 49fa54a2b04157244990efe97320f54b, type: 3}
 --- !u!50 &9185669952805762723
 Rigidbody2D:
@@ -242,7 +242,7 @@ MonoBehaviour:
   pounce_windup: 0.8
   hop_windup: 0.5
   pounce_range: 10
-  hop_strength: 2.5
+  hop_strength: 2
 --- !u!1 &9185669953321059216
 GameObject:
   m_ObjectHideFlags: 0

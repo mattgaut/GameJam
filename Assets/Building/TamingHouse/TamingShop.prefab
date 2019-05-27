@@ -122,16 +122,16 @@ MonoBehaviour:
   items:
   - item: {fileID: 4647596279836555660, guid: ce142c3957683634b81093024f49a66e, type: 3}
     sprite: {fileID: 21300004, guid: 1e0b80912ce1b0b4e9c8184bbd5c99ee, type: 3}
-    price: 0
-    count: 10
+    price: 7
+    count: 15
   - item: {fileID: 4647596279836555660, guid: b8b58623cd6c7f94db9eb8338c8e16d7, type: 3}
     sprite: {fileID: 21300008, guid: 1e0b80912ce1b0b4e9c8184bbd5c99ee, type: 3}
-    price: 0
-    count: 5
+    price: 10
+    count: 10
   - item: {fileID: 4647596279836555660, guid: a790dbb9dd2fa024aa0049c1421855db, type: 3}
     sprite: {fileID: 21300006, guid: 1e0b80912ce1b0b4e9c8184bbd5c99ee, type: 3}
-    price: 0
-    count: 5
+    price: 20
+    count: 10
   shop_screen: {fileID: 0}
   player_gold: {fileID: 0}
   shop_transform: {fileID: 0}

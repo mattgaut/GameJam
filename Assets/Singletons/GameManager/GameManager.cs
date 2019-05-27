@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager> {
 
+    public bool input_active { get; private set; }
+
     [SerializeField] Character player_prefab;
     [SerializeField] bool start_on_awake;
 
@@ -18,6 +20,7 @@ public class GameManager : Singleton<GameManager> {
 
     protected override void OnAwake() {
         dropped_objects = new Dictionary<string, List<GameObject>>();
+        input_active = true;
         if (start_on_awake) StartGame();
     }
 
@@ -28,10 +31,11 @@ public class GameManager : Singleton<GameManager> {
     }
 
     public void LoadScene(string name) {
-        StartCoroutine(LoadSceneRoutine(name));
+        if (input_active) StartCoroutine(LoadSceneRoutine(name));
     }
 
     IEnumerator LoadSceneRoutine(string name) {
+        input_active = false;
         if (dropped_objects.ContainsKey(SceneManager.GetActiveScene().name)) {
             foreach (GameObject go in dropped_objects[SceneManager.GetActiveScene().name]) {
                 go.SetActive(false);
@@ -57,6 +61,7 @@ public class GameManager : Singleton<GameManager> {
         }
 
         yield return FadeFromBlack(1f);
+        input_active = true;
     }
 
     public void KillPlayer() {
@@ -64,10 +69,12 @@ public class GameManager : Singleton<GameManager> {
     }
 
     IEnumerator Respawn() {
+        input_active = false;
         int lk = player.LockInvincibility();
 
         yield return FadeToBlack(2f);
 
+        input_active = true;
         LoadScene("HubScene");
 
         player.RestoreHealth(player.health.max);

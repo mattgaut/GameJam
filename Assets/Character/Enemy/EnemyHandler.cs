@@ -142,11 +142,18 @@ public abstract class EnemyHandler : StateMachineController {
             transform.localPosition += 0.5f * Vector3.up;
             bump_knockback *= 2f;
             DontDestroyOnLoad(gameObject);
+            GameManager.instance.player.health.AddBuff(new HealthBuff());
             SceneManager.sceneLoaded += (a, b) => transform.position = GameManager.instance.transform.position + Vector3.up * 0.5f;
             is_tamed = true;
         }
         this.tame_item = null;
         _input.x = 0;
+    }
+
+    protected class HealthBuff : IStatBuff {
+        public float flat => 1;
+
+        public float multi => 1;
     }
 
     protected virtual void Start() {

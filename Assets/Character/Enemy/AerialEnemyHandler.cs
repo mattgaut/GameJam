@@ -152,7 +152,6 @@ public class AerialEnemyHandler : EnemyHandler {
     }
 
     protected void Face(float i) {
-        Debug.Log(0);
         if (!can_flip || i == 0) return;
         if (i * base_facing < 0) {
             flip_object.transform.localRotation = Quaternion.Euler(0, 180f, 0);

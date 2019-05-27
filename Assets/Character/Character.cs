@@ -261,7 +261,17 @@ public class Character : MonoBehaviour {
         obj.transform.position = transform.position + Vector3.up * 0.5f;
         float angle = Random.Range(0f, 90f) - 45f;
         Rigidbody2D body = obj.GetComponent<Rigidbody2D>();
-        body.AddForce(Quaternion.Euler(0, 0, angle) * Vector2.up * Random.Range(2f, 6f), ForceMode2D.Impulse);
+        body.AddForce(Quaternion.Euler(0, 0, angle) * Vector2.up * Random.Range(3f, 9f), ForceMode2D.Impulse);
+    }
+
+    public static void DropObject(Vector3 position, GameObject obj, bool should_instantiate_copy = false) {
+        if (should_instantiate_copy) {
+            obj = Instantiate(obj);
+        }
+        obj.transform.position = position + Vector3.up * 0.5f;
+        float angle = Random.Range(0f, 90f) - 45f;
+        Rigidbody2D body = obj.GetComponent<Rigidbody2D>();
+        body.AddForce(Quaternion.Euler(0, 0, angle) * Vector2.up * Random.Range(3f, 9f), ForceMode2D.Impulse);
     }
 
     /// <summary>
@@ -415,8 +425,12 @@ public class Character : MonoBehaviour {
         InvokeOnDeath(this, killed_by);
 
         if (team == Team.enemy) {
-            for (int i = 0; i < purse.coins; i++) {
-                DropObject(coin, true);
+            if (purse.coins > 50) {
+                Drop101(transform.position, purse.coins);
+            } else {
+                for (int i = 0; i < purse.coins; i++) {
+                    DropObject(coin, true);
+                }
             }
             Destroy(gameObject);
         } else {
@@ -424,8 +438,33 @@ public class Character : MonoBehaviour {
             for (int i = 0; i < purse.coins/2; i++) {
                 DropObject(coin, true);
             }
+            purse.coins -= purse.coins / 2;
 
             GameManager.instance.KillPlayer();
+        }
+    }
+
+    static int drop_ten_amount = 0;
+    static Vector2 drop_ten_position = Vector2.zero;
+    void Drop101(Vector2 position, int total) {
+        drop_ten_position = position;
+        drop_ten_amount = total;
+        for (int i = 0; i < drop_ten_amount && i < 10; i++) {
+            DropObject(coin, true);
+        }
+        drop_ten_amount -= 10;
+        if (purse.coins > 0) {
+            GameManager.instance.player.Invoke("Drop10", 0.2f);
+        }
+    }
+
+    void Drop10() {
+        for (int i = 0; i < drop_ten_amount && i < 30; i++) {
+            DropObject(drop_ten_position, coin, true);
+        }
+        drop_ten_amount -= 30;
+        if (drop_ten_amount > 0) {
+            Invoke("Drop10", 0.05f);
         }
     }
 

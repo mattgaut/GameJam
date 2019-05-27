@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerInputHandler : MonoBehaviour {
@@ -54,6 +55,8 @@ public class PlayerInputHandler : MonoBehaviour {
     private void Start() {
         footsteps.clip = sfxs.walking.clip.clip;
         footsteps.volume = sfxs.walking.clip.volume;
+
+        SceneManager.sceneLoaded += (a, b) => player.RestoreHealth(player.health.max);
     }
 
     private void Update() {
@@ -81,7 +84,7 @@ public class PlayerInputHandler : MonoBehaviour {
         }
 
         Vector2 adjusted_input = input;
-        if (!player.can_input || !player.can_move) {
+        if (!player.can_input || !player.can_move || !GameManager.instance.input_active) {
             adjusted_input = Vector2.zero;
         }
 
