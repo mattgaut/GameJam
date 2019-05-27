@@ -130,6 +130,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: 1
+  on_hit_sfx:
+    _override_clip: {fileID: 0}
+    _default_codename: 
+    default_clip: {fileID: 0}
   _char_definition:
     _name: Slime
     _health:
@@ -277,6 +281,10 @@ MonoBehaviour:
   vomit_windup: 0
   vomit_projectile: {fileID: 0}
   projectile_knockback: {x: 0, y: 0}
+  slime_sfx:
+    _override_clip: {fileID: 0}
+    _default_codename: sfx_slime
+    default_clip: {fileID: 0}
 --- !u!1 &9185669953321059216
 GameObject:
   m_ObjectHideFlags: 0

@@ -124,6 +124,9 @@ public class GroundedEnemyHandler : EnemyHandler, IInputHandler {
     }
 
     void Move() {
+        if (collision_info.below && !collision_info.below_last_frame) {
+            on_land?.Invoke();
+        }
         Vector2 movement = Vector2.zero;
         if (cont.collisions.above || cont.collisions.below) {
             velocity.y = 0;

@@ -59,12 +59,12 @@ public class PlayerInputHandler : MonoBehaviour {
         SceneManager.sceneLoaded += (a, b) => player.RestoreHealth(player.health.max);
     }
 
-    private void Update() {
+    private void Update() {       
         if (!player.alive) {
             SoundManager.instance.StopRepeating(sfxs.walking);
         }
 
-        if (Input.GetButtonDown("Attack")) {
+        if (GameManager.instance.input_active && Input.GetButtonDown("Attack")) {
             attacks.TryUseSlash(facing);
         }
 

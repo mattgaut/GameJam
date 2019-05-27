@@ -15,6 +15,8 @@ public class GameManager : Singleton<GameManager> {
 
     [SerializeField] Canvas ui;
 
+    SFXInfo pause = new SFXInfo("sfx_pause");
+
     public Character player { get; private set; }
     public Level current_level { get; private set; }
 
@@ -76,6 +78,7 @@ public class GameManager : Singleton<GameManager> {
 
     private void Update() {
         if (Input.GetButtonDown("Pause")) {
+            SoundManager.instance.PlaySfx(pause);
             if (Time.timeScale == 0) {
                 Time.timeScale = 1;
                 ui.gameObject.SetActive(false);

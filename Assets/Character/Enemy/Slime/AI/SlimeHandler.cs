@@ -12,7 +12,16 @@ public class SlimeHandler : GroundedEnemyHandler {
     [SerializeField] float vomit_cd, vomit_windup;
     [SerializeField] Projectile vomit_projectile;
     [SerializeField] Vector2 projectile_knockback;
+
+    [SerializeField] SFXInfo slime_sfx;
+
     float last_vomit;
+
+    protected override void Ini() {
+        base.Ini();
+        character.on_take_damage += (a, b, c, d) => SoundManager.instance.PlaySfx(slime_sfx);
+        on_land += () => { if (Vector2.Distance(GameManager.instance.player.transform.position, transform.position) < 8) SoundManager.instance.PlaySfx(slime_sfx); };
+    }
 
     public bool can_vomit {
         get { return last_vomit > vomit_cd; }

@@ -130,6 +130,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: 1
+  on_hit_sfx:
+    _override_clip: {fileID: 0}
+    _default_codename: 
+    default_clip: {fileID: 0}
   _char_definition:
     _name: Slime
     _health:
@@ -278,6 +282,10 @@ MonoBehaviour:
   vomit_projectile: {fileID: 7263522661095417985, guid: 7cb6f8e867a5d8643b9d40be46c8bfb9,
     type: 3}
   projectile_knockback: {x: 2, y: 2}
+  slime_sfx:
+    _override_clip: {fileID: 0}
+    _default_codename: sfx_slime
+    default_clip: {fileID: 0}
 --- !u!1 &9185669953321059216
 GameObject:
   m_ObjectHideFlags: 0
