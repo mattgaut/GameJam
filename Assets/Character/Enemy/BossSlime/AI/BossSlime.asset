@@ -16,8 +16,8 @@ MonoBehaviour:
   - _name: Wander
     rect:
       serializedVersion: 2
-      x: 522
-      y: 342
+      x: 473
+      y: 336
       width: 200
       height: 40.95508
   - _name: Hunt
@@ -47,8 +47,8 @@ MonoBehaviour:
       _name: Wander
       rect:
         serializedVersion: 2
-        x: 522
-        y: 342
+        x: 473
+        y: 336
         width: 200
         height: 40.95508
     _conditions:
@@ -59,8 +59,8 @@ MonoBehaviour:
       _name: Wander
       rect:
         serializedVersion: 2
-        x: 522
-        y: 342
+        x: 473
+        y: 336
         width: 200
         height: 40.95508
     _from:
@@ -136,7 +136,7 @@ MonoBehaviour:
     _name: Wander
     rect:
       serializedVersion: 2
-      x: 522
-      y: 342
+      x: 473
+      y: 336
       width: 200
       height: 40.95508
