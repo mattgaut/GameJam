@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _codename: sfx_purchase
   _clip: {fileID: 8300000, guid: 37afa6bc490c45e48bff3a1acdd8d5e2, type: 3}
-  _volume: 0.12
+  _volume: 0.243

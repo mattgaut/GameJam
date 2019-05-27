@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _codename: sfx_slime
   _clip: {fileID: 8300000, guid: 8f0e8c7a6636b9944b00a31d58a95a9b, type: 3}
-  _volume: 0.197
+  _volume: 0.262

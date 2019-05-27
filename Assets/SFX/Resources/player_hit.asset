@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _codename: sfx_player_hit
   _clip: {fileID: 8300000, guid: ccda0b0a5cb4393439bb221db6bcb144, type: 3}
-  _volume: 0.222
+  _volume: 0.298

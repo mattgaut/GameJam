@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _codename: sfx_tame
   _clip: {fileID: 8300000, guid: 0ec7225d03152574d9f35cf338d4ba45, type: 3}
-  _volume: 0.683
+  _volume: 0.701

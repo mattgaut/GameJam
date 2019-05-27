@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _codename: sfx_coin
   _clip: {fileID: 8300000, guid: d553ed86a60d24545be3429f59670f7b, type: 3}
-  _volume: 1
+  _volume: 0.608

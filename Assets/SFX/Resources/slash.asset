@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _codename: sfx_slash
   _clip: {fileID: 8300000, guid: d8e81c6cae0310a478e49129cbaf6340, type: 3}
-  _volume: 0.805
+  _volume: 0.9
