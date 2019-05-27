@@ -139,6 +139,7 @@ public abstract class EnemyHandler : StateMachineController {
             transform.localScale *= 1.5f;
             transform.localPosition += 0.5f * Vector3.up;
             bump_knockback *= 2f;
+            DontDestroyOnLoad(gameObject);
             is_tamed = true;
         }
         this.tame_item = null;
