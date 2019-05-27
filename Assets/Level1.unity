@@ -554,9 +554,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounds:
     serializedVersion: 2
-    x: 0
+    x: -2
     y: 0
-    width: 55
+    width: 60
     height: 20
   to_follow: {fileID: 0}
   grab_player: 1
