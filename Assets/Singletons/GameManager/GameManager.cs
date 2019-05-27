@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager> {
 
     [SerializeField] Character player_prefab;
-   
+    [SerializeField] bool start_on_awake;
+
     public Character player { get; private set; }
-    public Level current_level;
+    public Level current_level { get; private set; }
 
     protected override void OnAwake() {
-        StartGame();
+        if (start_on_awake) StartGame();
     }
 
     public void StartGame() {

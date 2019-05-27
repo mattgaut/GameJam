@@ -17,6 +17,7 @@ public class PlayerInputHandler : MonoBehaviour {
     [SerializeField] [Range(0, 5)] float time_to_jump_apex;
 
     [SerializeField] Character player;
+    [SerializeField] PlayerAttacks attacks;
 
     [SerializeField] SoundEffects sfxs;
 
@@ -57,8 +58,7 @@ public class PlayerInputHandler : MonoBehaviour {
 
     private void Update() {
         if (Input.GetButtonDown("Attack")) {
-            player.Dash(new Vector2(1 * facing, 0), 0.05f);
-            SoundManager.instance.PlaySfx(sfxs.slash);
+            attacks.TryUseSlash(facing);
         }
 
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -245,6 +245,5 @@ public class PlayerInputHandler : MonoBehaviour {
     [System.Serializable]
     class SoundEffects {
         public SFXInfo walking;
-        public SFXInfo slash;
     }
 }

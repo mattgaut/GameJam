@@ -59,7 +59,6 @@ public class SoundManager : Singleton<SoundManager> {
     public void PlaySfx(SFXInfo info, bool is_once_per_frame = true) {
         if (info == null || info.clip == null) return;
         if (is_once_per_frame && clips_played_this_frame.Contains(info.clip)) return;
-
         info.clip.PlaySound(sfx);
         clips_played_this_frame.Add(info.clip);
     }

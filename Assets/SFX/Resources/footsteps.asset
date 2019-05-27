@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _codename: sfx_footsteps
   _clip: {fileID: 8300000, guid: 0020b7ef577cd9b49801410ae41f28de, type: 3}
-  _volume: 1
+  _volume: 0.169
