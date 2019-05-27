@@ -94,12 +94,9 @@ public abstract class EnemyHandler : StateMachineController {
 
     protected virtual void Start() {
         last_bump = bump_cooldown;
-        Ini();
-        if (active_on_start) {
-            target = FindObjectOfType<Character>();
-        }
+        Ini();        
         if (!target) {
-            target = FindObjectOfType<Character>();
+            target = GameManager.instance.player;
         }
         SetActive(active_on_start);
     }
