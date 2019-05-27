@@ -41,11 +41,12 @@ public class SoundManager : Singleton<SoundManager> {
         }
     }
 
-    public void PlaySong(AudioClip clip, bool loop = true) {
+    public void PlaySong(SFXClip clip, bool loop = true) {
         instance.main.UnPause();
         main.loop = loop;
+        main.volume = clip.volume;
         if (main.clip == null || !main.isPlaying) {
-            main.clip = clip;
+            main.clip = clip.clip;
             if (fade_routine != null) {
                 StopCoroutine(fade_routine);
             }
@@ -54,7 +55,7 @@ public class SoundManager : Singleton<SoundManager> {
             if (fade_routine != null) {
                 StopCoroutine(fade_routine);
             }
-            fade_routine = StartCoroutine(TradeOutMain(2f, clip));
+            fade_routine = StartCoroutine(TradeOutMain(2f, clip.clip));
         }
     }
 

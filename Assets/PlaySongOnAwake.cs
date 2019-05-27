@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlaySongOnAwake : MonoBehaviour {
 
-    [SerializeField] AudioClip song;
+    [SerializeField] SFXClip song;
     void Start() {
         SoundManager.instance.PlaySong(song);
     }
