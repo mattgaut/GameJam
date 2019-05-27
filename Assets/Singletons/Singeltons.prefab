@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_prefab: {fileID: 0}
-  current_level: {fileID: 0}
+  start_on_awake: 0
 --- !u!1 &1840228105212291027
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   fade_in: {fileID: 1840228105212291031}
   sfx: {fileID: 1840228105212291030}
   _sound_bank: {fileID: 11400000, guid: fce63948a9bd4494b839a0af4ed34432, type: 2}
-  volume: 0.674
+  volume: 1
 --- !u!82 &1840228105212291028
 AudioSource:
   m_ObjectHideFlags: 0

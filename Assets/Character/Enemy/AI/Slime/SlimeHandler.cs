@@ -15,6 +15,9 @@ public class SlimeHandler : GroundedEnemyHandler {
             length += 0;
         }
 
+        Vector2 dash_vector = Vector2.one * 4f;
+        character.GiveKnockback(character, dash_vector, 1f);
+
 
     }
 }
