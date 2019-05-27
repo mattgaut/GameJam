@@ -40,8 +40,9 @@ public class SoundManager : Singleton<SoundManager> {
         }
     }
 
-    public void PlaySong(AudioClip clip) {
+    public void PlaySong(AudioClip clip, bool loop = true) {
         instance.main.UnPause();
+        main.loop = loop;
         if (main.clip == null || !main.isPlaying) {
             main.clip = clip;
             if (fade_routine != null) {
