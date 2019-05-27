@@ -213,8 +213,8 @@ public class Character : MonoBehaviour {
             StopCoroutine(knockback_routine);
         }
 
-        on_take_knockback?.Invoke(source, force, length);
-        knockback_routine = StartCoroutine(KnockbackRoutine(force, length));
+        on_take_knockback?.Invoke(source, force * knockback_multiplier, length);
+        knockback_routine = StartCoroutine(KnockbackRoutine(force * knockback_multiplier, length));
     }
 
     /// <summary>
@@ -225,7 +225,7 @@ public class Character : MonoBehaviour {
     /// <param name="force">The force of the knockback</param>
     /// <param name="length">Knockback Duration</param>
     public void GiveKnockback(Character target, Vector2 force, float length = 0.5f) {
-        target.TakeKnockback(this, force * knockback_multiplier, length);
+        target.TakeKnockback(this, force, length);
     }
 
     /// <summary>
@@ -382,7 +382,7 @@ public class Character : MonoBehaviour {
         invincibility_lock = new Lock();
 
         if (team == Team.enemy) {
-            purse.coins += Random.Range(0, 10);
+            purse.coins = Random.Range(0 + purse.coins / 2, 10 + purse.coins);
         }
 
         inventory = new Inventory();

@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 0
   sprite_renderer: {fileID: 4647596279836555663}
-  tame_chance: 0.5
+  tame_chance: 0.25
   favored_enemy: Slime
   tame_success_object: {fileID: 2391057274975869333, guid: 7529e389dbd48114c99eefd4e9b8e8cc,
     type: 3}

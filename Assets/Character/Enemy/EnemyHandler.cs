@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController), typeof(Character))]
 public abstract class EnemyHandler : StateMachineController {
@@ -12,7 +13,7 @@ public abstract class EnemyHandler : StateMachineController {
 
     [SerializeField] bool need_line_of_sight;
 
-    [SerializeField] MultiHitAttack bump_hitbox;
+    [SerializeField] protected MultiHitAttack bump_hitbox;
 
     [SerializeField] float _aggro_range;
 
@@ -39,12 +40,12 @@ public abstract class EnemyHandler : StateMachineController {
 
     public bool can_tame { get { return tame_item != null && is_tamed == false; } }
 
-    public bool is_tamed { get; private set; }
+    public bool is_tamed { get; protected set; }
 
-    Item tame_item;
+    protected Item tame_item;
 
     public int layer_attacking {
-        get; private set;
+        get; protected set;
     }
 
     public void AttemptTame(Item tame) {
@@ -105,7 +106,7 @@ public abstract class EnemyHandler : StateMachineController {
         character = GetComponent<Character>();
     }
 
-    protected IEnumerator Tame() {
+    protected virtual IEnumerator Tame() {
         Item tame_item = this.tame_item;
         float difference = transform.position.x - tame_item.transform.position.x;
         while (tame_item != null && difference > 0.4f) {
@@ -125,7 +126,7 @@ public abstract class EnemyHandler : StateMachineController {
             tame_item.is_taming = false;
         }
 
-        if (tame_item != null && tame_item.TryTame(character)) {
+        if (tame_item != null && !tame_item.used && tame_item.TryTame(character)) {
             foreach (Collider2D coll in GetComponentsInChildren<Collider2D>()) {
                 if (coll.gameObject.layer == LayerMask.NameToLayer("EnemyAttack")) {
                     coll.gameObject.layer = LayerMask.NameToLayer("PlayerAttack");
@@ -140,6 +141,7 @@ public abstract class EnemyHandler : StateMachineController {
             transform.localPosition += 0.5f * Vector3.up;
             bump_knockback *= 2f;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += (a, b) => transform.position = GameManager.instance.transform.position + Vector3.up * 0.5f;
             is_tamed = true;
         }
         this.tame_item = null;

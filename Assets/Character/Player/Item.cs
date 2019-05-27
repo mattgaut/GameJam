@@ -19,6 +19,8 @@ public class Item : MonoBehaviour {
 
     public bool is_taming { get; set; }
 
+    public bool used { get; private set; }
+
     public Type type {
         get { return _type; }
     }
@@ -40,6 +42,7 @@ public class Item : MonoBehaviour {
     }
 
     public bool TryTame(Character character) {
+        used = true;
         float chance = tame_chance;
         if (character.char_definition.name == favored_enemy) {
             chance *= 2;

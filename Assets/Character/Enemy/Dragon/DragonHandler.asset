@@ -1,0 +1,261 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edf0ac3e9c432843bdaa1571587c5c6, type: 3}
+  m_Name: DragonHandler
+  m_EditorClassIdentifier: 
+  states:
+  - _name: Wander
+    rect:
+      serializedVersion: 2
+      x: 517
+      y: 334
+      width: 200
+      height: 40.95508
+  - _name: TameWander
+    rect:
+      serializedVersion: 2
+      x: 815
+      y: 447
+      width: 200
+      height: 40.95508
+  - _name: Hunt
+    rect:
+      serializedVersion: 2
+      x: 474
+      y: 556
+      width: 200
+      height: 40.95508
+  - _name: FireBall
+    rect:
+      serializedVersion: 2
+      x: 187
+      y: 582
+      width: 200
+      height: 40.95508
+  - _name: Tame
+    rect:
+      serializedVersion: 2
+      x: 239
+      y: 386
+      width: 200
+      height: 40.95508
+  transitions:
+  - _to:
+      _name: Tame
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 386
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Wander
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 334
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanTame
+      _should_parameter_be_true: 1
+  - _to:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 556
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Wander
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 334
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanHunt
+      _should_parameter_be_true: 1
+  - _to:
+      _name: Tame
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 386
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 556
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanTame
+      _should_parameter_be_true: 1
+  - _to:
+      _name: Wander
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 334
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 556
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanHunt
+      _should_parameter_be_true: 0
+    - _parameter:
+        _name: IsTamed
+      _should_parameter_be_true: 0
+  - _to:
+      _name: TameWander
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 447
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 556
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanHunt
+      _should_parameter_be_true: 0
+    - _parameter:
+        _name: IsTamed
+      _should_parameter_be_true: 1
+  - _to:
+      _name: FireBall
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 582
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 556
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanFireball
+      _should_parameter_be_true: 1
+  - _to:
+      _name: TameWander
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 447
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Tame
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 386
+        width: 200
+        height: 40.95508
+    _conditions: []
+  - _to:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 556
+        width: 200
+        height: 40.95508
+    _from:
+      _name: TameWander
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 447
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanHunt
+      _should_parameter_be_true: 1
+  - _to:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 556
+        width: 200
+        height: 40.95508
+    _from:
+      _name: FireBall
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 582
+        width: 200
+        height: 40.95508
+    _conditions: []
+  - _to:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 556
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 556
+        width: 200
+        height: 40.95508
+    _conditions: []
+  parameters:
+  - _name: IsTamed
+  - _name: CanTame
+  - _name: CanHunt
+  - _name: CanFireball
+  entry_state:
+    _name: Wander
+    rect:
+      serializedVersion: 2
+      x: 517
+      y: 334
+      width: 200
+      height: 40.95508
