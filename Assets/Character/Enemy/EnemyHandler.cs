@@ -67,11 +67,9 @@ public abstract class EnemyHandler : StateMachineController {
     }
 
     protected void ConfirmBump(Character player) {
-        Debug.Log("Bumpp");
         if (player.invincible) {
             last_bump = 0;
         } else {
-
             Bump(player);
         }
     }

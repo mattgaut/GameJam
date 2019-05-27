@@ -17,14 +17,21 @@ MonoBehaviour:
     rect:
       serializedVersion: 2
       x: 521
-      y: 344
+      y: 343
       width: 200
       height: 40.95508
   - _name: Hunt
     rect:
       serializedVersion: 2
-      x: 609
-      y: 451
+      x: 435
+      y: 493
+      width: 200
+      height: 40.95508
+  - _name: Pounce
+    rect:
+      serializedVersion: 2
+      x: 291
+      y: 602
       width: 200
       height: 40.95508
   transitions:
@@ -32,8 +39,8 @@ MonoBehaviour:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 609
-        y: 451
+        x: 435
+        y: 493
         width: 200
         height: 40.95508
     _from:
@@ -41,27 +48,7 @@ MonoBehaviour:
       rect:
         serializedVersion: 2
         x: 521
-        y: 344
-        width: 200
-        height: 40.95508
-    _conditions:
-    - _parameter:
-        _name: CanHunt
-      _should_parameter_be_true: 1
-  - _to:
-      _name: Hunt
-      rect:
-        serializedVersion: 2
-        x: 609
-        y: 451
-        width: 200
-        height: 40.95508
-    _from:
-      _name: Hunt
-      rect:
-        serializedVersion: 2
-        x: 609
-        y: 451
+        y: 343
         width: 200
         height: 40.95508
     _conditions:
@@ -73,25 +60,83 @@ MonoBehaviour:
       rect:
         serializedVersion: 2
         x: 521
-        y: 344
+        y: 343
         width: 200
         height: 40.95508
     _from:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 609
-        y: 451
+        x: 435
+        y: 493
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanHunt
+      _should_parameter_be_true: 0
+  - _to:
+      _name: Pounce
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 602
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 493
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanPounce
+      _should_parameter_be_true: 1
+  - _to:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 493
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 493
+        width: 200
+        height: 40.95508
+    _conditions: []
+  - _to:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 493
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Pounce
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 602
         width: 200
         height: 40.95508
     _conditions: []
   parameters:
   - _name: CanHunt
+  - _name: CanPounce
   entry_state:
     _name: Wander
     rect:
       serializedVersion: 2
       x: 521
-      y: 344
+      y: 343
       width: 200
       height: 40.95508
