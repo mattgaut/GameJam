@@ -38,7 +38,6 @@ public class TargetCollection : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.layer == enemy.layer_attacking) {
             targets.Add(collision.GetComponentInParent<Character>());
-            Debug.Log("Add " + targets[targets.Count - 1].name);
         }
     }
 

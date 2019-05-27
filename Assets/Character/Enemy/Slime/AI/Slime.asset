@@ -16,15 +16,15 @@ MonoBehaviour:
   - _name: Wander
     rect:
       serializedVersion: 2
-      x: 521
-      y: 343
+      x: 522
+      y: 342
       width: 200
       height: 40.95508
   - _name: Hunt
     rect:
       serializedVersion: 2
-      x: 448
-      y: 517
+      x: 462
+      y: 513
       width: 200
       height: 40.95508
   - _name: Pounce
@@ -41,6 +41,13 @@ MonoBehaviour:
       y: 421
       width: 200
       height: 40.95508
+  - _name: WanderTamed
+    rect:
+      serializedVersion: 2
+      x: 702
+      y: 445
+      width: 200
+      height: 40.95508
   transitions:
   - _to:
       _name: Tame
@@ -54,8 +61,8 @@ MonoBehaviour:
       _name: Wander
       rect:
         serializedVersion: 2
-        x: 521
-        y: 343
+        x: 522
+        y: 342
         width: 200
         height: 40.95508
     _conditions:
@@ -66,16 +73,16 @@ MonoBehaviour:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 448
-        y: 517
+        x: 462
+        y: 513
         width: 200
         height: 40.95508
     _from:
       _name: Wander
       rect:
         serializedVersion: 2
-        x: 521
-        y: 343
+        x: 522
+        y: 342
         width: 200
         height: 40.95508
     _conditions:
@@ -94,8 +101,8 @@ MonoBehaviour:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 448
-        y: 517
+        x: 462
+        y: 513
         width: 200
         height: 40.95508
     _conditions:
@@ -106,22 +113,48 @@ MonoBehaviour:
       _name: Wander
       rect:
         serializedVersion: 2
-        x: 521
-        y: 343
+        x: 522
+        y: 342
         width: 200
         height: 40.95508
     _from:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 448
-        y: 517
+        x: 462
+        y: 513
         width: 200
         height: 40.95508
     _conditions:
     - _parameter:
         _name: CanHunt
       _should_parameter_be_true: 0
+    - _parameter:
+        _name: IsTamed
+      _should_parameter_be_true: 0
+  - _to:
+      _name: WanderTamed
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 445
+        width: 200
+        height: 40.95508
+    _from:
+      _name: Hunt
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 513
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanHunt
+      _should_parameter_be_true: 0
+    - _parameter:
+        _name: IsTamed
+      _should_parameter_be_true: 1
   - _to:
       _name: Pounce
       rect:
@@ -134,8 +167,8 @@ MonoBehaviour:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 448
-        y: 517
+        x: 462
+        y: 513
         width: 200
         height: 40.95508
     _conditions:
@@ -146,16 +179,16 @@ MonoBehaviour:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 448
-        y: 517
+        x: 462
+        y: 513
         width: 200
         height: 40.95508
     _from:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 448
-        y: 517
+        x: 462
+        y: 513
         width: 200
         height: 40.95508
     _conditions: []
@@ -163,8 +196,8 @@ MonoBehaviour:
       _name: Hunt
       rect:
         serializedVersion: 2
-        x: 448
-        y: 517
+        x: 462
+        y: 513
         width: 200
         height: 40.95508
     _from:
@@ -177,11 +210,31 @@ MonoBehaviour:
         height: 40.95508
     _conditions: []
   - _to:
-      _name: Wander
+      _name: Hunt
       rect:
         serializedVersion: 2
-        x: 521
-        y: 343
+        x: 462
+        y: 513
+        width: 200
+        height: 40.95508
+    _from:
+      _name: WanderTamed
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 445
+        width: 200
+        height: 40.95508
+    _conditions:
+    - _parameter:
+        _name: CanHunt
+      _should_parameter_be_true: 1
+  - _to:
+      _name: WanderTamed
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 445
         width: 200
         height: 40.95508
     _from:
@@ -197,11 +250,12 @@ MonoBehaviour:
   - _name: CanHunt
   - _name: CanPounce
   - _name: CanTame
+  - _name: IsTamed
   entry_state:
     _name: Wander
     rect:
       serializedVersion: 2
-      x: 521
-      y: 343
+      x: 522
+      y: 342
       width: 200
       height: 40.95508

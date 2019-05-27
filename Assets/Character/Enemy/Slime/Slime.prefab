@@ -140,9 +140,9 @@ MonoBehaviour:
       base_value: 0
     _knockback_modifier:
       base_value: 1
-    _center_mass: {fileID: 9185669954773786414}
-    _feet: {fileID: 9185669954773786414}
-    _head: {fileID: 9185669954773786414}
+    _center_mass: {fileID: 7409824818104389433}
+    _feet: {fileID: 7409824818104389433}
+    _head: {fileID: 7409824818104389433}
   invincibility_length: 0.2
   knockback_resistant: 0
   anim: {fileID: 9185669954773786409}
@@ -200,6 +200,11 @@ MonoBehaviour:
     callback_name: get_can_tame
     callback_is_field: 0
     callback_index: 1
+  - parameter:
+      _name: IsTamed
+    callback_name: get_is_tamed
+    callback_is_field: 0
+    callback_index: 2
   state_coroutine_list:
   - state:
       _name: Wander
@@ -210,7 +215,7 @@ MonoBehaviour:
         width: 0
         height: 0
     coroutine_name: RandomHop
-    coroutine_index: 2
+    coroutine_index: 3
   - state:
       _name: Hunt
       rect:
@@ -240,7 +245,17 @@ MonoBehaviour:
         width: 0
         height: 0
     coroutine_name: Tame
-    coroutine_index: 4
+    coroutine_index: 5
+  - state:
+      _name: WanderTamed
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+    coroutine_name: HopAtPlayer
+    coroutine_index: 2
   active_on_start: 1
   line_of_sight_origin: {fileID: 7409824818104389433}
   line_of_sight_blocking_mask:

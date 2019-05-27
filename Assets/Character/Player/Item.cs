@@ -45,7 +45,7 @@ public class Item : MonoBehaviour {
             chance *= 2;
         }
 
-        if (Random.Range(0f, 1f) < tame_chance) {
+        if (Random.Range(0f, 1f) < chance) {
             Tame(character);
             return true;
         }
