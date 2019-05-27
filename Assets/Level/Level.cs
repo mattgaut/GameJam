@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Level : MonoBehaviour {
 
+    public Transform spawn_point { get { return _spawn_point; } }
+
     [SerializeField] List<Tile> tiles;
     [SerializeField] List<Tile> background_tiles;
+
+    [SerializeField] Transform _spawn_point;
 
     Dictionary<Vector2Int, Tile> tile_dict;
     Dictionary<Vector2Int, Tile> background_tile_dict;

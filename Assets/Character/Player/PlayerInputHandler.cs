@@ -151,7 +151,7 @@ public class PlayerInputHandler : MonoBehaviour {
             }
         } else if (drop_routine == null && player.can_move && Input.GetButtonDown("Drop")) {
             drop_routine = StartCoroutine(DropRoutine());
-        } else if (player.can_move && Input.GetButtonDown("Jump")) {
+        } else if (player.can_move && Input.GetButtonDown("Jump") && player.jump_count > jumps_used) {
             if (cont.collisions.below) {
                 Jump(true);
             } else {
