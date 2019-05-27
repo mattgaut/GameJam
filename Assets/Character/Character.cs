@@ -213,8 +213,8 @@ public class Character : MonoBehaviour {
             StopCoroutine(knockback_routine);
         }
 
-        on_take_knockback?.Invoke(source, force * knockback_multiplier, length);
-        knockback_routine = StartCoroutine(KnockbackRoutine(force * knockback_multiplier, length));
+        on_take_knockback?.Invoke(source, force * (source != this ? knockback_multiplier : 1f), length);
+        knockback_routine = StartCoroutine(KnockbackRoutine(force * (source != this ? knockback_multiplier : 1f), length));
     }
 
     /// <summary>

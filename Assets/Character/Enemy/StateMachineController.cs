@@ -63,17 +63,14 @@ public class StateMachineController : MonoBehaviour {
     /// <returns></returns>
     protected IEnumerator StateMachineCoroutine() {
 
-        Debug.Log(active);
         while (active) {
-
-            Debug.Log(active);
             if (state_coroutines.ContainsKey(state_machine_instance.current_state)) {
                 yield return state_coroutines[state_machine_instance.current_state].Invoke();
                 while (!can_transition) {
                     yield return new WaitForFixedUpdate();
                 }
                 state_machine_instance.TransitionUsingCallbacks();
-                Debug.Log("Transition to " + state_machine_instance.current_state.name);
+                //Debug.Log("Transition to " + state_machine_instance.current_state.name);
             } else {
                 Debug.LogError("No Routine exists for state "  + state_machine_instance.current_state.name);
                 break;

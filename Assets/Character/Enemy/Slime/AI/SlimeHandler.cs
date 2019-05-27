@@ -9,7 +9,8 @@ public class SlimeHandler : GroundedEnemyHandler {
     [SerializeField] float pounce_range;
     [SerializeField] float hop_strength = 1f;
 
-    public bool is_in_pounce_range { get { return target != null && Vector2.Distance(target.transform.position, transform.position) < pounce_range; } }
+    public bool is_in_pounce_range { get {
+            return target != null && Vector2.Distance(target.transform.position, transform.position) < pounce_range; } }
 
     IEnumerator Pounce() {
         if (this.target) {

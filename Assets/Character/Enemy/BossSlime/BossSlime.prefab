@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5483968428962970917}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.01, y: 0.131, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalScale: {x: 0.033333335, y: 0.033333335, z: 1}
   m_Children: []
   m_Father: {fileID: 9185669953622481444}
   m_RootOrder: 3
@@ -61,7 +61,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 20
 --- !u!1 &9185669952805762727
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
     _energy:
       base_value: 0
     _knockback_modifier:
-      base_value: 1
+      base_value: 0
     _center_mass: {fileID: 7409824818104389433}
     _feet: {fileID: 7409824818104389433}
     _head: {fileID: 7409824818104389433}
@@ -233,7 +233,7 @@ MonoBehaviour:
     m_Bits: 256
   need_line_of_sight: 1
   bump_hitbox: {fileID: 2555147007262187410}
-  _aggro_range: 3
+  _aggro_range: 20
   bump_damage: 1
   bump_knockback: {x: 8, y: 8, z: 0}
   flip_object: {fileID: 9185669952805762727}
@@ -241,7 +241,7 @@ MonoBehaviour:
   no_gravity: 0
   pounce_windup: 0.8
   hop_windup: 0.5
-  pounce_range: 160
+  pounce_range: 10
   hop_strength: 2.5
 --- !u!1 &9185669953321059216
 GameObject:
@@ -253,7 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9185669953321059217}
   - component: {fileID: 2555147007262187410}
-  - component: {fileID: 7081482118869285509}
+  - component: {fileID: 8165909486506472916}
   m_Layer: 13
   m_Name: HurtBox
   m_TagString: Untagged
@@ -291,7 +291,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   time_between_hits: 0.25
---- !u!60 &7081482118869285509
+--- !u!60 &8165909486506472916
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -301,7 +301,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
